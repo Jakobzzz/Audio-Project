@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{cb1495e0-072b-4ca3-9cd2-02494cbecd4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{ded801cb-3380-4587-b57b-05ca35c6956b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{d11e1688-543c-4484-897e-1b79715469df}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\graphics\Application.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Model.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Buffer.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Camera.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Input.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Shader.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\graphics\Application.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Model.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Buffer.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Camera.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\D3DUtility.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Input.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Shader.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\res\shaders\Primitive.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
