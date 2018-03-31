@@ -15,6 +15,7 @@ namespace px
 	class Buffer;
 	class Model;
 	class Camera;
+	class SoundManager;
 
 	class Application
 	{
@@ -45,6 +46,7 @@ namespace px
 		std::unique_ptr<Buffer> m_buffer;
 		std::unique_ptr<Model> m_model;
 		std::unique_ptr<Camera> m_camera;
+		std::unique_ptr<SoundManager> m_soundManager;
 
 	private:
 		D3D11_VIEWPORT m_vp;

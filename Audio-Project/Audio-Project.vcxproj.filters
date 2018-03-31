@@ -14,6 +14,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{d11e1688-543c-4484-897e-1b79715469df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\Audio">
+      <UniqueIdentifier>{5d0520f7-0a55-42c9-befc-53efe7a5f76c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -38,6 +41,9 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\utils\SoundManager.cpp">
+      <Filter>Utility\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp">
@@ -60,6 +66,9 @@
     </ClInclude>
     <ClInclude Include="src\utils\Shader.hpp">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\SoundManager.hpp">
+      <Filter>Utility\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

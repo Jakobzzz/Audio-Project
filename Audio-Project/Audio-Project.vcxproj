@@ -29,6 +29,7 @@
     <ClCompile Include="src\utils\Camera.cpp" />
     <ClCompile Include="src\utils\Input.cpp" />
     <ClCompile Include="src\utils\Shader.cpp" />
+    <ClCompile Include="src\utils\SoundManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="src\utils\D3DUtility.hpp" />
     <ClInclude Include="src\utils\Input.hpp" />
     <ClInclude Include="src\utils\Shader.hpp" />
+    <ClInclude Include="src\utils\SoundManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\res\shaders\Primitive.hlsl">
@@ -116,6 +118,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -127,6 +130,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -140,6 +144,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -155,6 +160,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
