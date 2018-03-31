@@ -8,6 +8,10 @@
 #include <tchar.h>
 #include <DirectXColors.h>
 
+//Audio headers
+#include <mmsystem.h>
+#include <mciapi.h>
+
 #define WIN32_LEAN_AND_MEAN //Exclude some windows headers
 
 namespace px
@@ -17,6 +21,12 @@ namespace px
 	}
 
 	Application::~Application() = default;
+
+	void Application::LoadAudioFiles()
+	{
+		//mciSendString("open \"src/res/sounds/birds.mp3\" type mpegvideo alias mp3", NULL, 0, NULL);
+		//mciSendString("play mp3", NULL, 0, NULL);
+	}
 
 	void Application::LoadShaders()
 	{
@@ -37,7 +47,7 @@ namespace px
 		//Create application window
 		m_windowClass = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("AP"), NULL };
 		RegisterClassEx(&m_windowClass);
-		HWND hwnd = CreateWindow(_T("AP"), _T("Audio Project [DX11]"), WS_OVERLAPPEDWINDOW, 150, 75, WIDTH, HEIGHT, NULL, NULL, m_windowClass.hInstance, NULL);
+		HWND hwnd = CreateWindow(_T("AP"), _T("Audio Project [DX11]"), WS_OVERLAPPEDWINDOW, 400, 200, WIDTH, HEIGHT, NULL, NULL, m_windowClass.hInstance, NULL);
 
 		//Initialize Direct3D
 		CreateDeviceD3D(hwnd);
@@ -51,6 +61,7 @@ namespace px
 		//Load resources
 		CreateObjects();
 		LoadShaders();
+		LoadAudioFiles();
 
 		m_model->CreateBuffers();
 	}

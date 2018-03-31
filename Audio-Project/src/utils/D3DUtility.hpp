@@ -10,8 +10,8 @@ namespace px
 {
 	//Release COM-object
 	#define SAFE_RELEASE(arg) if(*arg != nullptr) { (*arg)->Release(); (*arg) = nullptr; } 
-	#define WIDTH 1200
-	#define HEIGHT 900
+	#define WIDTH 800U
+	#define HEIGHT 600U
 
 	enum ShaderType
 	{

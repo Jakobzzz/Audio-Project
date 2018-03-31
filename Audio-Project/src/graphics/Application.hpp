@@ -26,6 +26,7 @@ namespace px
 		void ShutDown();
 
 	private:
+		void LoadAudioFiles();
 		void LoadShaders();
 		void Update();
 		void PollEvents();
