@@ -21,7 +21,6 @@ namespace px
 		Model() = default;
 		Model(Camera* camera, Buffer* buffer, Shader* shader);
 		~Model() = default;
-		void CreateBuffers();
 		void Draw();
 
 	private:

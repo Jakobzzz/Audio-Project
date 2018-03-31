@@ -25,13 +25,13 @@ namespace px
 		void Run();
 
 	private:
+		void LoadObjects();
 		void LoadAudioFiles();
 		void LoadShaders();
 		void Update();
 		void PollEvents();
 		void Render();
 		void RenderScene();
-		void CreateObjects();
 		void CreateDeviceD3D(HWND hWnd);
 		void CreateViewport();
 

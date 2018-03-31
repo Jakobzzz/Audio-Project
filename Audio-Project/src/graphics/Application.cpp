@@ -30,22 +30,22 @@ namespace px
 		Input::Initialize(hwnd);
 
 		//Load resources
-		CreateObjects();
+		LoadObjects();
 		LoadShaders();
 		LoadAudioFiles();
-		m_model->CreateBuffers();
 	}
 
 	Application::~Application()
 	{
 		m_mainRenderTargetView.Reset();
+		m_depthStencilView.Reset();
 		m_swapChain.Reset();
 		m_deviceContext.Reset();
 		m_device.Reset();
 		UnregisterClass(_T("AP"), m_windowClass.hInstance);
 	}
 
-	void Application::CreateObjects()
+	void Application::LoadObjects()
 	{
 		m_shaders = std::make_unique<Shader>(m_device.Get(), m_deviceContext.Get());
 		m_camera = std::make_unique<Camera>(Vector3(0.f, 0.f, -2.f));

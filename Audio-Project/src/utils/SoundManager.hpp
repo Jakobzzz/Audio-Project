@@ -1,3 +1,7 @@
+/*
+	Sound manager class based on the FMOD-library
+*/
+
 #pragma once
 #include <fmod_studio.hpp>
 #include <fmod.hpp>

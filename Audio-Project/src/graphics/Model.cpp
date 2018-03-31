@@ -29,10 +29,7 @@ namespace px
 
 	Model::Model(Camera* camera, Buffer * buffer, Shader * shader) : m_camera(camera), m_buffer(buffer), m_shader(shader)
 	{
-	}
-
-	void Model::CreateBuffers()
-	{
+		//Prepare buffers
 		m_buffer->CreateVertexBuffer(vertices, ARRAYSIZE(vertices), sizeof(Vertex), m_vertexBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
 		m_buffer->CreateConstantBuffer(&cb, sizeof(cb), 1, m_constantBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
 	}
