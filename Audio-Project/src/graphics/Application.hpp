@@ -6,7 +6,6 @@
 #include <wrl.h>
 #include <memory>
 #include <d3d11.h>
-#include <utils/SoundManager.hpp>
 
 using namespace Microsoft::WRL;
 
@@ -16,6 +15,7 @@ namespace px
 	class Buffer;
 	class Model;
 	class Camera;
+	class SoundManager;
 
 	class Application
 	{
@@ -46,7 +46,7 @@ namespace px
 		std::unique_ptr<Buffer> m_buffer;
 		std::unique_ptr<Model> m_model;
 		std::unique_ptr<Camera> m_camera;
-		SoundManager m_soundManager;
+		std::unique_ptr<SoundManager> m_soundManager;
 
 	private:
 		D3D11_VIEWPORT m_vp;

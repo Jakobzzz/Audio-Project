@@ -4,7 +4,6 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <math.h>
 #include <d3d11.h>
 #include <SimpleMath.h>
 
@@ -13,36 +12,37 @@ using namespace DirectX::SimpleMath;
 
 namespace px
 {
-	struct Implementation 
+	namespace Sound
 	{
-		Implementation();
-		~Implementation();
-		void Update();
-
-		FMOD::Studio::System* mpStudioSystem;
-		FMOD::System* mpSystem;
-		int mnNextChannelId;
-		std::map<std::string, FMOD::Studio::Bank*> mBanks;
-		std::map<std::string, FMOD::Studio::EventInstance*> mEvents;
-		std::map<std::string, FMOD::Sound*> mSounds;
-		std::map<int, FMOD::Channel*> mChannels;
-	};
+		enum ID
+		{
+			Birds,
+			Gun
+		};
+	}
 
 	class SoundManager
 	{
 	public:
-		static void Init();
-		static void Update();
-		static int ErrorCheck(FMOD_RESULT result);
+		SoundManager();
+		~SoundManager();
+
+	private:
+		struct SoundInfo
+		{
+			FMOD::Sound* sound;
+			std::string filePath;
+		};
 
 	public:
+		void Update();
 		void LoadBank(const std::string & strBankName, FMOD_STUDIO_LOAD_BANK_FLAGS flags);
 		void LoadEvent(const std::string & strEventName);
-		void LoadSound(const std::string & strSoundName, bool b3d = true, bool bLooping = false, bool bStream = false);
-		void UnloadSound(const std::string & strSoundName);
+		void LoadSound(const Sound::ID & id, const std::string & strSoundName, bool b3d = true, bool bLooping = false, bool bStream = false);
+		void UnloadSound(const Sound::ID & id);
 
 	public:
-		int Play(const std::string & strSoundName, const Vector3 & vPos = Vector3(0.f), float fVolumedB = 0.f);
+		int Play(const Sound::ID & id, const Vector3 & vPos = Vector3(0.f), float fVolumedB = 0.f);
 		void PlayEvent(const std::string & strEventName);
 		//void StopChannel(int nChannelId);
 		void StopEvent(const std::string & strEventName, bool bImmediate = false);
@@ -63,5 +63,20 @@ namespace px
 		float dbToVolume(float dB);
 		float VolumeTodB(float volume);
 		FMOD_VECTOR VectorToFmod(const Vector3& vPosition);	
+
+	private:
+		int ErrorCheck(FMOD_RESULT result);
+
+	private:
+		FMOD::Studio::System* m_studioSystem;
+		FMOD::System* m_system;
+		int m_nextChannelId;
+
+	private:
+		std::map<std::string, FMOD::Studio::Bank*> m_banks;
+		std::map<std::string, FMOD::Studio::EventInstance*> m_events;
+		std::map<Sound::ID, SoundInfo> m_sounds;
+		using Channels = std::map<int, FMOD::Channel*>;
+		Channels m_channels;
 	};
 }
