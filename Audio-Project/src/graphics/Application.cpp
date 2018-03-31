@@ -5,7 +5,6 @@
 #include <utils/Buffer.hpp>
 #include <utils/Input.hpp>
 #include <utils/Camera.hpp>
-#include <utils/SoundManager.hpp>
 #include <tchar.h>
 #include <DirectXColors.h>
 
@@ -21,8 +20,9 @@ namespace px
 
 	void Application::LoadAudioFiles()
 	{
-		//m_soundManager->LoadSoundFromFile(Sound::ID::Gun, "src/res/sounds/gun.wav");
-		//m_soundManager->LoadSoundFromFile(Sound::ID::Birds, "src/res/sounds/birds.wav");
+		/*m_soundManager.LoadSound("src/res/sounds/birds.wav", false);
+		m_soundManager.LoadSound("src/res/sounds/gun.wav", false);
+		m_soundManager.Play("src/res/sounds/birds.wav");*/
 	}
 
 	void Application::LoadShaders()
@@ -37,7 +37,6 @@ namespace px
 		m_camera = std::make_unique<Camera>(Vector3(0.f, 0.f, -2.f));
 		m_buffer = std::make_unique<Buffer>(m_device.Get(), m_deviceContext.Get());
 		m_model = std::make_unique<Model>(m_camera.get(), m_buffer.get(), m_shaders.get());
-		m_soundManager = std::make_unique<SoundManager>();
 	}
 
 	void Application::Initialize()
@@ -55,6 +54,7 @@ namespace px
 		ShowWindow(hwnd, SW_SHOWDEFAULT);
 		UpdateWindow(hwnd);
 		Input::Initialize(hwnd);
+		//m_soundManager.Init();
 
 		//Load resources
 		CreateObjects();
@@ -62,7 +62,6 @@ namespace px
 		LoadAudioFiles();
 
 		m_model->CreateBuffers();
-		//m_soundManager->Play(Sound::ID::Birds);
 	}
 
 	void Application::Run()
@@ -82,6 +81,7 @@ namespace px
 				continue;
 			}
 
+			//m_soundManager.Update();
 			Input::Update();
 			PollEvents();
 			m_camera->Update(0.0001f);
@@ -95,7 +95,7 @@ namespace px
 			PostQuitMessage(0);
 
 		/*if (Input::GetMouseButtonDown(Input::MouseButton::LEFT))
-			m_soundManager->Play(Sound::ID::Gun);*/
+			m_soundManager.Play("src/res/sounds/gun.wav");*/
 	}
 
 	void Application::Render()
