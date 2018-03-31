@@ -22,9 +22,7 @@ namespace px
 	public:
 		Application();
 		~Application();
-		void Initialize();
 		void Run();
-		void ShutDown();
 
 	private:
 		void LoadAudioFiles();

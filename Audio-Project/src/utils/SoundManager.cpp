@@ -6,6 +6,7 @@ namespace px
 {
 	SoundManager::SoundManager() : m_studioSystem(NULL), m_system(NULL)
 	{
+		//Init FMOD sound engine
 		ErrorCheck(FMOD::Studio::System::create(&m_studioSystem));
 		ErrorCheck(m_studioSystem->initialize(32, NULL, NULL, NULL));
 		ErrorCheck(m_studioSystem->getLowLevelSystem(&m_system));
@@ -210,16 +211,6 @@ namespace px
 		return fVec;
 	}
 
-	int SoundManager::ErrorCheck(FMOD_RESULT result)
-	{
-		if (result != FMOD_OK) 
-		{
-			std::cout << "FMOD ERROR " << result << std::endl;
-			return 1;
-		}
-		return 0;
-	}
-
 	float SoundManager::dbToVolume(float dB)
 	{
 		return powf(10.0f, 0.05f * dB);
@@ -228,5 +219,15 @@ namespace px
 	float SoundManager::VolumeTodB(float volume)
 	{
 		return 20.0f * log10f(volume);
+	}
+
+	int SoundManager::ErrorCheck(FMOD_RESULT result)
+	{
+		if (result != FMOD_OK)
+		{
+			std::cout << "FMOD ERROR " << result << std::endl;
+			return 1;
+		}
+		return 0;
 	}
 }
