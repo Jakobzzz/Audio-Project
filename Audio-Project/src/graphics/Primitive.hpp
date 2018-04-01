@@ -12,22 +12,21 @@ struct ID3D11Buffer;
 namespace px
 {
 	class Buffer;
-	class Shader;
 	class Camera;
+	class Model;
 
 	class Primitive
 	{
 	public:
 		Primitive() = default;
-		Primitive(Camera* camera, Buffer* buffer, Shader* shader);
+		Primitive(Camera* camera, Buffer* buffer, Model* model);
 		~Primitive() = default;
 		void Draw();
 
 	private:
 		Buffer * m_buffer;
-		Shader * m_shader;
 		Camera * m_camera;
-		ComPtr<ID3D11Buffer> m_vertexBuffer;
+		Model * m_model;
 		ComPtr<ID3D11Buffer> m_constantBuffer;
 	};
 }

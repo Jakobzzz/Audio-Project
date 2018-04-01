@@ -4,12 +4,14 @@
 
 struct VS_IN
 {
-    float4 position : POSITION;
+    float3 position : POSITION;
+    float3 normal : NORMAL;
 };
 
 struct VS_OUT
 {
     float4 position : SV_Position;
+    float3 normal : NORMAL;
 };
 
 cbuffer cbData : register(b0)
@@ -21,7 +23,8 @@ VS_OUT VS_MAIN(VS_IN input)
 {
     VS_OUT output;
 
-    output.position = mul(input.position, WVP);
+    output.position = mul(float4(input.position, 1.f), WVP);
+    output.normal = input.normal;
     return output;
 }
 

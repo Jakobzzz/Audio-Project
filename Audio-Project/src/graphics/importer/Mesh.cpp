@@ -9,10 +9,6 @@ namespace px
 		SetupMesh();
 	}
 
-	Mesh::~Mesh()
-	{
-	}
-
 	void Mesh::Draw(const Shaders::ID & id, Topology topology)
 	{
 		m_shader->SetShaders(id, topology);

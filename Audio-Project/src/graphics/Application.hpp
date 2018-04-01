@@ -16,6 +16,7 @@ namespace px
 	class Primitive;
 	class Camera;
 	class SoundManager;
+	class Model;
 
 	class Application
 	{
@@ -26,6 +27,7 @@ namespace px
 
 	private:
 		void LoadObjects();
+		void LoadModels();
 		void LoadAudioFiles();
 		void LoadShaders();
 		void Update();
@@ -42,8 +44,9 @@ namespace px
 	private:
 		std::unique_ptr<Shader> m_shaders;
 		std::unique_ptr<Buffer> m_buffer;
-		std::unique_ptr<Primitive> m_model;
+		std::unique_ptr<Primitive> m_primitive;
 		std::unique_ptr<Camera> m_camera;
+		std::unique_ptr<Model> m_models;
 		std::unique_ptr<SoundManager> m_soundManager;
 
 	private:

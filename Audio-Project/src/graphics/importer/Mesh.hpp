@@ -19,8 +19,9 @@ namespace px
 		};
 
 	public:
+		Mesh() = default;
 		Mesh(std::vector<VertexLayout> & vertices, std::vector<UINT> & indices, Buffer* buffer, Shader* shader);
-		~Mesh();
+		~Mesh() = default;
 		void Draw(const Shaders::ID & id, Topology topology);
 
 	private:
@@ -29,8 +30,6 @@ namespace px
 	private:
 		Buffer * m_buffer;
 		Shader * m_shader;
-
-	private:
 		std::vector<VertexLayout> m_vertices;
 		std::vector<UINT> m_indices;
 		ComPtr<ID3D11Buffer> m_vertexBuffer;
