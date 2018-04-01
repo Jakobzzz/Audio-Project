@@ -28,9 +28,6 @@
     <ClCompile Include="src\graphics\Application.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\Model.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\utils\Buffer.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
@@ -47,12 +44,18 @@
     <ClCompile Include="src\utils\SoundManager.cpp">
       <Filter>Utility\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Primitive.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\importer\Mesh.cpp">
+      <Filter>Graphics\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\importer\Model.cpp">
+      <Filter>Graphics\Importer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\Model.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\Buffer.hpp">
@@ -72,6 +75,15 @@
     </ClInclude>
     <ClInclude Include="src\utils\SoundManager.hpp">
       <Filter>Utility\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Primitive.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\importer\Mesh.hpp">
+      <Filter>Graphics\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\importer\Model.hpp">
+      <Filter>Graphics\Importer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

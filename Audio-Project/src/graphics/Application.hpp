@@ -13,7 +13,7 @@ namespace px
 {
 	class Shader;
 	class Buffer;
-	class Model;
+	class Primitive;
 	class Camera;
 	class SoundManager;
 
@@ -42,7 +42,7 @@ namespace px
 	private:
 		std::unique_ptr<Shader> m_shaders;
 		std::unique_ptr<Buffer> m_buffer;
-		std::unique_ptr<Model> m_model;
+		std::unique_ptr<Primitive> m_model;
 		std::unique_ptr<Camera> m_camera;
 		std::unique_ptr<SoundManager> m_soundManager;
 

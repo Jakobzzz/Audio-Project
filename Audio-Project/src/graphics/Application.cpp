@@ -1,5 +1,5 @@
 #include <graphics/Application.hpp>
-#include <graphics/Model.hpp>
+#include <graphics/Primitive.hpp>
 #include <utils/D3DUtility.hpp>
 #include <utils/Shader.hpp>
 #include <utils/Buffer.hpp>
@@ -50,7 +50,7 @@ namespace px
 		m_shaders = std::make_unique<Shader>(m_device.Get(), m_deviceContext.Get());
 		m_camera = std::make_unique<Camera>(Vector3(0.f, 0.f, -2.f));
 		m_buffer = std::make_unique<Buffer>(m_device.Get(), m_deviceContext.Get());
-		m_model = std::make_unique<Model>(m_camera.get(), m_buffer.get(), m_shaders.get());
+		m_model = std::make_unique<Primitive>(m_camera.get(), m_buffer.get(), m_shaders.get());
 		//m_soundManager = std::make_unique<SoundManager>();
 	}
 

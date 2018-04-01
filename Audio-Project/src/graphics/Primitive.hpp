@@ -15,12 +15,12 @@ namespace px
 	class Shader;
 	class Camera;
 
-	class Model
+	class Primitive
 	{
 	public:
-		Model() = default;
-		Model(Camera* camera, Buffer* buffer, Shader* shader);
-		~Model() = default;
+		Primitive() = default;
+		Primitive(Camera* camera, Buffer* buffer, Shader* shader);
+		~Primitive() = default;
 		void Draw();
 
 	private:

@@ -1,4 +1,4 @@
-#include <graphics/Model.hpp>
+#include <graphics/Primitive.hpp>
 #include <utils/Buffer.hpp>
 #include <utils/Shader.hpp>
 #include <utils/Camera.hpp>
@@ -27,14 +27,14 @@ namespace px
 		Vector4(-0.5f, -0.5f, 0.5f, 1.f)
 	};
 
-	Model::Model(Camera* camera, Buffer * buffer, Shader * shader) : m_camera(camera), m_buffer(buffer), m_shader(shader)
+	Primitive::Primitive(Camera* camera, Buffer * buffer, Shader * shader) : m_camera(camera), m_buffer(buffer), m_shader(shader)
 	{
 		//Prepare buffers
 		m_buffer->CreateVertexBuffer(vertices, ARRAYSIZE(vertices), sizeof(Vertex), m_vertexBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
 		m_buffer->CreateConstantBuffer(&cb, sizeof(cb), 1, m_constantBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
 	}
 
-	void Model::Draw()
+	void Primitive::Draw()
 	{
 		//Update constant buffer data
 		Matrix world = XMMatrixIdentity();

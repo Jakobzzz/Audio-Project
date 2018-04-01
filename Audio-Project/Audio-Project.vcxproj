@@ -23,7 +23,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\Application.cpp" />
-    <ClCompile Include="src\graphics\Model.cpp" />
+    <ClCompile Include="src\graphics\importer\Mesh.cpp" />
+    <ClCompile Include="src\graphics\importer\Model.cpp" />
+    <ClCompile Include="src\graphics\Primitive.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\utils\Buffer.cpp" />
     <ClCompile Include="src\utils\Camera.cpp" />
@@ -33,7 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp" />
-    <ClInclude Include="src\graphics\Model.hpp" />
+    <ClInclude Include="src\graphics\importer\Mesh.hpp" />
+    <ClInclude Include="src\graphics\importer\Model.hpp" />
+    <ClInclude Include="src\graphics\Primitive.hpp" />
     <ClInclude Include="src\utils\Buffer.hpp" />
     <ClInclude Include="src\utils\Camera.hpp" />
     <ClInclude Include="src\utils\D3DUtility.hpp" />
