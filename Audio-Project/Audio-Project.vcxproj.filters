@@ -17,6 +17,9 @@
     <Filter Include="Utility\Audio">
       <UniqueIdentifier>{5d0520f7-0a55-42c9-befc-53efe7a5f76c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Importer">
+      <UniqueIdentifier>{0f56a8d2-b22b-4058-a308-f16c99057c24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
