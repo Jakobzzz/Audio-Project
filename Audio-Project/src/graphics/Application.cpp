@@ -50,7 +50,7 @@ namespace px
 	void Application::LoadObjects()
 	{
 		m_shaders = std::make_unique<Shader>(m_device.Get(), m_deviceContext.Get());
-		m_camera = std::make_unique<Camera>(Vector3(0.f, 0.f, -2.f));
+		m_camera = std::make_unique<Camera>(Vector3(0.f, 0.f, -10.f));
 		m_buffer = std::make_unique<Buffer>(m_device.Get(), m_deviceContext.Get());
 		m_models = std::make_unique<Model>(m_buffer.get(), m_shaders.get());
 		m_primitive = std::make_unique<Primitive>(m_camera.get(), m_buffer.get(), m_models.get());
@@ -64,15 +64,15 @@ namespace px
 
 	void Application::LoadAudioFiles()
 	{
-		m_soundManager->LoadSound(Sound::Birds, "src/res/sounds/birds.wav", false, false, true);
-		m_soundManager->LoadSound(Sound::Gun, "src/res/sounds/gun.wav", false);
-		m_soundManager->Play(Sound::Birds);
+		m_soundManager->LoadSound(Sounds::Birds, "src/res/sounds/birds.wav", false, false, true);
+		m_soundManager->LoadSound(Sounds::Gun, "src/res/sounds/gun.wav", false);
+		m_soundManager->Play(Sounds::Birds);
 	}
 
 	void Application::LoadShaders()
 	{
-		m_shaders->LoadShadersFromFile(Shaders::BASIC, "src/res/shaders/Primitive.hlsl", VS | PS);
-		m_shaders->CreateInputLayout(Shaders::BASIC);
+		m_shaders->LoadShadersFromFile(Shaders::Basic, "src/res/shaders/Primitive.hlsl", VS | PS);
+		m_shaders->CreateInputLayout(Shaders::Basic);
 	}
 
 	void Application::Run()
@@ -106,7 +106,7 @@ namespace px
 			PostQuitMessage(0);
 
 		/*if (Input::GetMouseButtonDown(Input::MouseButton::LEFT))
-			m_soundManager->Play(Sound::Gun);*/
+			m_soundManager->Play(Sounds::Gun);*/
 	}
 
 	void Application::Render()

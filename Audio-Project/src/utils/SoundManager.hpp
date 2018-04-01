@@ -16,7 +16,7 @@ using namespace DirectX::SimpleMath;
 
 namespace px
 {
-	namespace Sound
+	namespace Sounds
 	{
 		enum ID
 		{
@@ -42,11 +42,11 @@ namespace px
 		void Update();
 		void LoadBank(const std::string & strBankName, FMOD_STUDIO_LOAD_BANK_FLAGS flags);
 		void LoadEvent(const std::string & strEventName);
-		void LoadSound(const Sound::ID & id, const std::string & strSoundName, bool b3d = true, bool bLooping = false, bool bStream = false);
-		void UnloadSound(const Sound::ID & id);
+		void LoadSound(const Sounds::ID & id, const std::string & strSoundName, bool b3d = true, bool bLooping = false, bool bStream = false);
+		void UnloadSound(const Sounds::ID & id);
 
 	public:
-		int Play(const Sound::ID & id, const Vector3 & vPos = Vector3(0.f), float fVolumedB = 0.f);
+		int Play(const Sounds::ID & id, const Vector3 & vPos = Vector3(0.f), float fVolumedB = 0.f);
 		void PlayEvent(const std::string & strEventName);
 		//void StopChannel(int nChannelId);
 		//void StopAllChannels();
@@ -77,7 +77,7 @@ namespace px
 		int m_nextChannelId;
 		std::map<std::string, FMOD::Studio::Bank*> m_banks;
 		std::map<std::string, FMOD::Studio::EventInstance*> m_events;
-		std::map<Sound::ID, SoundInfo> m_sounds;
+		std::map<Sounds::ID, SoundInfo> m_sounds;
 		using Channels = std::map<int, FMOD::Channel*>;
 		Channels m_channels;
 	};

@@ -17,7 +17,7 @@ namespace px
 	{
 		enum ID
 		{
-			BASIC
+			Basic
 		};
 	}
 

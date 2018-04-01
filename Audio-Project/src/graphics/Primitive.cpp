@@ -43,7 +43,7 @@ namespace px
 		m_buffer->UpdateConstantBuffer(&cb, m_constantBuffer.GetAddressOf());
 
 		m_buffer->SetConstantBuffer(0, m_constantBuffer.GetAddressOf(), VS);
-		m_model->Draw(Models::Cube, Shaders::BASIC, Topology::TRIANGLES);
+		m_model->Draw(Models::Cube, Shaders::Basic, Topology::TRIANGLES);
 		/*m_shader->SetShaders(Shaders::BASIC, TRIANGLES);
 		m_buffer->SetVertexBuffer(m_vertexBuffer.GetAddressOf(), sizeof(Vertex));
 		m_buffer->Draw(ARRAYSIZE(vertices));

@@ -35,7 +35,7 @@ namespace px
 		//Hardcoded layout for now
 		std::vector<D3D11_INPUT_ELEMENT_DESC> inputElementDesc;
 
-		if (id == Shaders::ID::BASIC)
+		if (id == Shaders::Basic)
 		{
 			inputElementDesc =
 			{

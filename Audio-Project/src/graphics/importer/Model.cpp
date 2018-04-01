@@ -1,7 +1,7 @@
 #include <graphics/importer/Model.hpp>
+#include <utils/Buffer.hpp>
 #include <assimp/Importer.hpp>
 #include <iostream>
-#include <utils/Buffer.hpp>
 
 namespace px
 {

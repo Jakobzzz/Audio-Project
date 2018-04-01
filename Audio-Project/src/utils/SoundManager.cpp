@@ -41,7 +41,7 @@ namespace px
 		ErrorCheck(m_studioSystem->update());
 	}
 
-	void SoundManager::LoadSound(const Sound::ID & id, const std::string & strSoundName, bool b3d, bool bLooping, bool bStream)
+	void SoundManager::LoadSound(const Sounds::ID & id, const std::string & strSoundName, bool b3d, bool bLooping, bool bStream)
 	{
 		SoundInfo info;
 		info.filePath = strSoundName;
@@ -59,7 +59,7 @@ namespace px
 		assert(inserted.second);
 	}
 
-	void SoundManager::UnloadSound(const Sound::ID & id)
+	void SoundManager::UnloadSound(const Sounds::ID & id)
 	{
 		auto tFoundIt = m_sounds.find(id);
 		if (tFoundIt == m_sounds.end())
@@ -69,7 +69,7 @@ namespace px
 		m_sounds.erase(tFoundIt);
 	}
 
-	int SoundManager::Play(const Sound::ID & id, const Vector3 & vPosition, float fVolumedB)
+	int SoundManager::Play(const Sounds::ID & id, const Vector3 & vPosition, float fVolumedB)
 	{
 		int nChannelId = m_nextChannelId++;
 		auto tFoundIt = m_sounds.find(id);
