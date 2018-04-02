@@ -12,7 +12,7 @@ namespace px
 	public:
 		Camera();
 		Camera(const Vector3 & camPosition = Vector3(0.0f, 0.0f, -2.0f), const Vector3 & camTarget = Vector3(0.0f, 0.0f, -1.f),
-			   const Vector3 & camUp = Vector3(0.0f, 1.0f, 0.0f), float speed = 100.0f, float sensitivity = 0.2f);
+			   const Vector3 & camUp = Vector3(0.0f, 1.0f, 0.0f), float speed = 250.0f, float sensitivity = 0.2f);
 		~Camera() = default;
 		void Update(float dt);
 
