@@ -22,6 +22,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="externals\imgui\include\imgui.cpp" />
+    <ClCompile Include="externals\imgui\include\imgui_draw.cpp" />
+    <ClCompile Include="externals\imgui\include\imgui_impl_dx11.cpp" />
     <ClCompile Include="src\graphics\Application.cpp" />
     <ClCompile Include="src\graphics\importer\Mesh.cpp" />
     <ClCompile Include="src\graphics\importer\Model.cpp" />
@@ -105,19 +108,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)/externals/fmod/lowlevel/lib;$(ProjectDir)/externals/fmod/studio/lib;$(ProjectDir)/externals/assimp/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)/externals/fmod/lowlevel/lib;$(ProjectDir)/externals/fmod/studio/lib;$(ProjectDir)/externals/assimp/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)/externals/fmod/lowlevel/lib;$(ProjectDir)/externals/fmod/studio/lib;$(ProjectDir)/externals/assimp/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)/externals/fmod/lowlevel/lib;$(ProjectDir)/externals/fmod/studio/lib;$(ProjectDir)/externals/assimp/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

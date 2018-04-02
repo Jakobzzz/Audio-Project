@@ -8,9 +8,12 @@
 #include <utils/Camera.hpp>
 #include <utils/SoundManager.hpp>
 #include <tchar.h>
+#include <imgui.h>
+#include <imgui_impl_dx11.h>
 #include <DirectXColors.h>
 
 #define WIN32_LEAN_AND_MEAN //Exclude some windows headers
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 namespace px
 {
@@ -19,7 +22,7 @@ namespace px
 		//Create application window
 		m_windowClass = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("AP"), NULL };
 		RegisterClassEx(&m_windowClass);
-		HWND hwnd = CreateWindow(_T("AP"), _T("Audio Project [DX11]"), WS_OVERLAPPEDWINDOW, 400, 200, WIDTH, HEIGHT, NULL, NULL, m_windowClass.hInstance, NULL);
+		HWND hwnd = CreateWindow(_T("AP"), _T("Audio Project [DX11]"), WS_OVERLAPPEDWINDOW, 200, 75, WIDTH, HEIGHT, NULL, NULL, m_windowClass.hInstance, NULL);
 
 		//Initialize Direct3D
 		CreateDeviceD3D(hwnd);
@@ -30,6 +33,13 @@ namespace px
 		UpdateWindow(hwnd);
 		Input::Initialize(hwnd);
 
+		//Setup ImGui binding
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		ImGui_ImplDX11_Init(hwnd, m_device.Get(), m_deviceContext.Get());
+		io.NavFlags |= ImGuiNavFlags_EnableKeyboard;
+		ImGui::StyleColorsDark();
+
 		//Load resources
 		LoadObjects();
 		LoadShaders();
@@ -38,7 +48,9 @@ namespace px
 	}
 
 	Application::~Application()
-	{
+	{		
+		ImGui_ImplDX11_Shutdown();
+		ImGui::DestroyContext();
 		m_mainRenderTargetView.Reset();
 		m_depthStencilView.Reset();
 		m_swapChain.Reset();
@@ -96,8 +108,17 @@ namespace px
 			Input::Update();
 			PollEvents();
 			m_camera->Update(0.0001f);
+			ImGui_ImplDX11_NewFrame();
+			UpdateGUI();
 			Render();
 		}
+	}
+
+	void Application::UpdateGUI()
+	{
+		ImGui::Begin("Hello");
+		ImGui::Text("Hello there");
+		ImGui::End();
 	}
 
 	void Application::PollEvents()
@@ -117,6 +138,8 @@ namespace px
 		m_deviceContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 		RenderScene();
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		assert(!m_swapChain->Present(0, 0));
 	}
 
@@ -194,6 +217,9 @@ namespace px
 
 	LRESULT Application::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
+		if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+			return true;
+
 		switch (msg)
 		{
 		case WM_ACTIVATEAPP:

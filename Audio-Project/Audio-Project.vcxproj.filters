@@ -20,6 +20,9 @@
     <Filter Include="Graphics\Importer">
       <UniqueIdentifier>{0f56a8d2-b22b-4058-a308-f16c99057c24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImGUI">
+      <UniqueIdentifier>{515f6616-f06d-4902-8adf-795b7bd49454}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -52,6 +55,15 @@
     </ClCompile>
     <ClCompile Include="src\graphics\importer\Model.cpp">
       <Filter>Graphics\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="externals\imgui\include\imgui.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="externals\imgui\include\imgui_draw.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="externals\imgui\include\imgui_impl_dx11.cpp">
+      <Filter>ImGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

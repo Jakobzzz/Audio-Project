@@ -11,6 +11,8 @@ namespace px
 				   m_cameraPos(camPosition), m_camTarget(camTarget), m_camUp(camUp), m_movementSpeed(speed), m_mouseSensivity(sensitivity),
 				   m_camYaw(0.f), m_camPitch(0.f), m_fov(45.0f)
 	{
+		m_currentMousePos = Vector2(static_cast<float>(Input::GetMousePositionX()), static_cast<float>(Input::GetMousePositionY()));
+		m_lastMousePos = m_currentMousePos;
 	}
 
 	void Camera::Update(float dt)
@@ -44,14 +46,27 @@ namespace px
 
 	void Camera::RotateCamera()
 	{
-		if (Mouse::MODE_RELATIVE)
+		m_lastMousePos = m_currentMousePos;
+		m_currentMousePos = Vector2(static_cast<float>(Input::GetMousePositionX()), static_cast<float>(Input::GetMousePositionY()));
+
+		//if (Mouse::MODE_RELATIVE)
+		//{
+		//	//As we use relative mouse-coordinates delta is already calculated
+		//	Vector2 mouseDelta = m_currentMousePos * m_mouseSensivity;
+		//	m_camYaw += mouseDelta.x;
+		//	m_camPitch += mouseDelta.y;
+
+		//	//Restrict pitch angle
+		//	if (m_camPitch > 89.0f)
+		//		m_camPitch = 89.0f;
+
+		//	if (m_camPitch < -89.0f)
+		//		m_camPitch = -89.0f;
+		//}
+		if (Input::GetMouseButton(Input::MouseButton::RIGHT))
 		{
 			//Calculate delta
-			float currMousePosX = (float)Input::GetMousePositionX();
-			float currMousePosY = (float)Input::GetMousePositionY();
-
-			//As we use relative mouse-coordinates delta is already calculated
-			Vector2 mouseDelta = Vector2(currMousePosX, currMousePosY) * m_mouseSensivity;
+			Vector2 mouseDelta = (m_currentMousePos - m_lastMousePos) * m_mouseSensivity;
 			m_camYaw += mouseDelta.x;
 			m_camPitch += mouseDelta.y;
 
@@ -61,14 +76,14 @@ namespace px
 
 			if (m_camPitch < -89.0f)
 				m_camPitch = -89.0f;
-
-			//Calculate target vector with Euler angles
-			m_rotationMatrix = XMMatrixRotationRollPitchYaw(XMConvertToRadians(m_camPitch), XMConvertToRadians(m_camYaw), 0.f);
-			m_camTarget = XMVector3TransformCoord(Vector3(0.0f, 0.0f, 1.0f), m_rotationMatrix);
-			m_camTarget = XMVector3Normalize(m_camTarget);
-
-			m_viewMatrix = XMMatrixLookAtLH(m_cameraPos, m_camTarget + m_cameraPos, m_camUp);
 		}
+
+		//Calculate target vector with Euler angles
+		m_rotationMatrix = XMMatrixRotationRollPitchYaw(XMConvertToRadians(m_camPitch), XMConvertToRadians(m_camYaw), 0.f);
+		m_camTarget = XMVector3TransformCoord(Vector3(0.0f, 0.0f, 1.0f), m_rotationMatrix);
+		m_camTarget = XMVector3Normalize(m_camTarget);
+
+		m_viewMatrix = XMMatrixLookAtLH(m_cameraPos, m_camTarget + m_cameraPos, m_camUp);
 	}
 
 	void Camera::SetPosition(const Vector3 & position)
