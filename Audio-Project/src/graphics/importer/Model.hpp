@@ -1,3 +1,7 @@
+/*
+	Model loading class with the Assimp library
+*/
+
 #pragma once
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

@@ -1,3 +1,7 @@
+/*
+	Helper class for preparing a mesh when loading models
+*/
+
 #pragma once
 #include <utils/Shader.hpp>
 #include <SimpleMath.h>

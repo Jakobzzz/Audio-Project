@@ -28,5 +28,6 @@ namespace px
 		Camera * m_camera;
 		Model * m_model;
 		ComPtr<ID3D11Buffer> m_constantBuffer;
+		ComPtr<ID3D11Buffer> m_lightBuffer;
 	};
 }
