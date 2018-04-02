@@ -83,6 +83,9 @@
     <ClCompile Include="src\graphics\systems\RenderSystem.cpp">
       <Filter>Graphics\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Transformable.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp">
@@ -126,6 +129,9 @@
     </ClInclude>
     <ClInclude Include="src\graphics\systems\RenderSystem.hpp">
       <Filter>Graphics\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Transformable.hpp">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

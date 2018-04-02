@@ -8,11 +8,6 @@
 
 namespace px
 {
-	struct Vertex
-	{
-		Vector4 position;
-	};
-
 	struct CBData
 	{
 		Matrix WVP;
@@ -27,12 +22,6 @@ namespace px
 		float specular;
 	}lightCb;
 
-	Vertex vertices[] =
-	{
-		Vector4(0.0f, 0.5f, 0.5f, 1.f),
-		Vector4(0.5f, -0.5f, 0.5f, 1.f),
-		Vector4(-0.5f, -0.5f, 0.5f, 1.f)
-	};
 
 	Primitive::Primitive(Camera* camera, Buffer * buffer, LightManager * lightManager, Model* model) : m_camera(camera), m_buffer(buffer), m_model(model), 
 																									   m_lightManager(lightManager)

@@ -31,6 +31,7 @@
     <ClCompile Include="src\graphics\Primitive.cpp" />
     <ClCompile Include="src\graphics\Renderable.cpp" />
     <ClCompile Include="src\graphics\systems\RenderSystem.cpp" />
+    <ClCompile Include="src\graphics\Transformable.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\utils\Buffer.cpp" />
     <ClCompile Include="src\utils\Camera.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="src\graphics\Primitive.hpp" />
     <ClInclude Include="src\graphics\Renderable.hpp" />
     <ClInclude Include="src\graphics\systems\RenderSystem.hpp" />
+    <ClInclude Include="src\graphics\Transformable.hpp" />
     <ClInclude Include="src\utils\Buffer.hpp" />
     <ClInclude Include="src\utils\Camera.hpp" />
     <ClInclude Include="src\utils\D3DUtility.hpp" />
