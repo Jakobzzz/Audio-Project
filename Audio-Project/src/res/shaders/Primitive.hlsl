@@ -24,7 +24,9 @@ cbuffer cbData : register(b0)
 cbuffer lightCbData : register(b1)
 {
     float3 lightDirection;
+    float ambientStrength;
     float3 camPos;
+    float specularStrength;
 }
 
 VS_OUT VS_MAIN(VS_IN input)
@@ -36,7 +38,7 @@ VS_OUT VS_MAIN(VS_IN input)
     output.normal = normalize(output.normal);
 
     //Light
-    output.fragPos = mul(float4(input.position, 1.0f), world);
+    output.fragPos = mul(float4(input.position, 1.f), world);
 
     return output;
 }
@@ -45,18 +47,18 @@ float4 PS_MAIN(VS_OUT input) : SV_Target
 {
     //Hardcoded solid red color
     float3 color = float3(1.f, 0.f, 0.f);
+    //float3 lightPos = float3(1.2f, 2.5f, 2.0f);
 
     //Light constants
-    float3 lightAmbient = float3(0.5f, 0.5f, 0.5f);
-    float3 lightSpecular = float3(0.5f, 0.5f, 0.5f);
     float shininess = 32.0f;
 
     //Ambient
-    float3 ambient = lightAmbient * color;
+    float3 ambient = ambientStrength * color;
   	
     //Diffuse 
     float3 norm = input.normal;
-    float3 lightDir = normalize(-lightDirection);
+    //float3 lightDir = normalize(lightPos - input.fragPos);
+    float3 lightDir = normalize(lightDirection);
     float diff = max(dot(norm, lightDir), 0.0);
     float3 diffuse = diff * color;
 
@@ -64,7 +66,7 @@ float4 PS_MAIN(VS_OUT input) : SV_Target
     float3 viewDir = normalize(camPos - input.fragPos);
     float3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-    float3 specular = lightSpecular * spec * color;
+    float3 specular = specularStrength * spec * color;
         
     float3 phong = ambient + diffuse + specular;
     return float4(phong, 1.0f);

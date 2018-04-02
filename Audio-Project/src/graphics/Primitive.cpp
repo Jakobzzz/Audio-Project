@@ -22,9 +22,9 @@ namespace px
 	struct LightCB
 	{
 		Vector3 lightDir;
-		float pad;
+		float ambient;
 		Vector3 camPos;
-		float pad1;
+		float specular;
 	}lightCb;
 
 	Vertex vertices[] =
@@ -52,6 +52,8 @@ namespace px
 
 		lightCb.camPos = m_camera->GetCameraPosition();
 		lightCb.lightDir = m_lightManager->GetLightDirection();
+		lightCb.ambient = m_lightManager->GetAmbientStrength();
+		lightCb.specular = m_lightManager->GetSpecularStrength();
 		m_buffer->UpdateConstantBuffer(&lightCb, m_lightBuffer.GetAddressOf());
 
 		m_buffer->SetConstantBuffer(0, m_constantBuffer.GetAddressOf(), VS);

@@ -120,15 +120,21 @@ namespace px
 	{
 		static int floatPrecision = 3;
 		static Vector3 lightDir = m_lightManager->GetLightDirection();
+		static float ambient = m_lightManager->GetAmbientStrength();
+		static float specular = m_lightManager->GetSpecularStrength();
 
 		//const ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove;
 		ImGui::Begin("Scene");
 		ImGui::Text("Light");
 		ImGui::Spacing();
 		ImGui::InputFloat3("Direction", &lightDir.x, floatPrecision);
+		ImGui::DragFloat("Ambient", &ambient, 0.01f, 0.f, 1.f);
+		ImGui::DragFloat("Specular", &specular, 0.01f, 0.f, 1.f);
 		ImGui::End();
 
 		m_lightManager->SetLightDirection(lightDir);
+		m_lightManager->SetAmbientStrength(ambient);
+		m_lightManager->SetSpecularStrength(specular);
 	}
 
 	void Application::PollEvents()
