@@ -4,10 +4,7 @@
 #include <utils/Shader.hpp>
 #include <utils/Camera.hpp>
 #include <utils/D3DUtility.hpp>
-#include <SimpleMath.h>
-
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
+#include <utils/LightManager.hpp>
 
 namespace px
 {
@@ -37,7 +34,8 @@ namespace px
 		Vector4(-0.5f, -0.5f, 0.5f, 1.f)
 	};
 
-	Primitive::Primitive(Camera* camera, Buffer * buffer, Model* model) : m_camera(camera), m_buffer(buffer), m_model(model)
+	Primitive::Primitive(Camera* camera, Buffer * buffer, LightManager * lightManager, Model* model) : m_camera(camera), m_buffer(buffer), m_model(model), 
+																									   m_lightManager(lightManager)
 	{
 		//Prepare constant buffers
 		m_buffer->CreateConstantBuffer(&lightCb, sizeof(lightCb), 1, m_lightBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
@@ -53,7 +51,7 @@ namespace px
 		m_buffer->UpdateConstantBuffer(&cb, m_constantBuffer.GetAddressOf());
 
 		lightCb.camPos = m_camera->GetCameraPosition();
-		lightCb.lightDir = Vector3(-5.f, 2.f, 3.0f);
+		lightCb.lightDir = m_lightManager->GetLightDirection();
 		m_buffer->UpdateConstantBuffer(&lightCb, m_lightBuffer.GetAddressOf());
 
 		m_buffer->SetConstantBuffer(0, m_constantBuffer.GetAddressOf(), VS);

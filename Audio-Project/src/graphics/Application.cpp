@@ -6,6 +6,7 @@
 #include <utils/Buffer.hpp>
 #include <utils/Input.hpp>
 #include <utils/Camera.hpp>
+#include <utils/LightManager.hpp>
 #include <utils/SoundManager.hpp>
 #include <tchar.h>
 #include <imgui.h>
@@ -65,7 +66,8 @@ namespace px
 		m_camera = std::make_unique<Camera>(Vector3(0.f, 0.f, -10.f));
 		m_buffer = std::make_unique<Buffer>(m_device.Get(), m_deviceContext.Get());
 		m_models = std::make_unique<Model>(m_buffer.get(), m_shaders.get());
-		m_primitive = std::make_unique<Primitive>(m_camera.get(), m_buffer.get(), m_models.get());
+		m_lightManager = std::make_unique<LightManager>();
+		m_primitive = std::make_unique<Primitive>(m_camera.get(), m_buffer.get(), m_lightManager.get(), m_models.get());
 		//m_soundManager = std::make_unique<SoundManager>();
 	}
 
@@ -116,10 +118,17 @@ namespace px
 
 	void Application::UpdateGUI()
 	{
+		static int floatPrecision = 3;
+		static Vector3 lightDir = m_lightManager->GetLightDirection();
+
 		//const ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove;
-		ImGui::Begin("Hello");
-		ImGui::Text("Hello there");
+		ImGui::Begin("Scene");
+		ImGui::Text("Light");
+		ImGui::Spacing();
+		ImGui::InputFloat3("Direction", &lightDir.x, floatPrecision);
 		ImGui::End();
+
+		m_lightManager->SetLightDirection(lightDir);
 	}
 
 	void Application::PollEvents()
@@ -134,7 +143,7 @@ namespace px
 	void Application::Render()
 	{
 		m_deviceContext->RSSetViewports(1, &m_vp);
-		m_deviceContext->OMSetRenderTargets(1, m_mainRenderTargetView.GetAddressOf(), NULL);
+		m_deviceContext->OMSetRenderTargets(1, m_mainRenderTargetView.GetAddressOf(), NULL); //Imgui DX11 sample provides a default depth stencil view*
 		m_deviceContext->ClearRenderTargetView(m_mainRenderTargetView.Get(), DirectX::Colors::DarkGray);
 		//m_deviceContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
@@ -191,7 +200,7 @@ namespace px
 		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 		sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		sd.OutputWindow = hWnd;
-		sd.SampleDesc.Count = 4;
+		sd.SampleDesc.Count = 1;
 		sd.SampleDesc.Quality = 0;
 		sd.Windowed = TRUE;
 		sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;

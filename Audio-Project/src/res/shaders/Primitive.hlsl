@@ -48,7 +48,7 @@ float4 PS_MAIN(VS_OUT input) : SV_Target
 
     //Light constants
     float3 lightAmbient = float3(0.5f, 0.5f, 0.5f);
-    float3 lightSpecular = float3(0.3f, 0.3f, 0.3f);
+    float3 lightSpecular = float3(0.5f, 0.5f, 0.5f);
     float shininess = 32.0f;
 
     //Ambient

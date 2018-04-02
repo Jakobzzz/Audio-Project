@@ -16,6 +16,7 @@ namespace px
 	class Primitive;
 	class Camera;
 	class SoundManager;
+	class LightManager;
 	class Model;
 
 	class Application
@@ -48,6 +49,7 @@ namespace px
 		std::unique_ptr<Primitive> m_primitive;
 		std::unique_ptr<Camera> m_camera;
 		std::unique_ptr<Model> m_models;
+		std::unique_ptr<LightManager> m_lightManager;
 		std::unique_ptr<SoundManager> m_soundManager;
 
 	private:

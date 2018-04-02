@@ -23,6 +23,9 @@
     <Filter Include="ImGUI">
       <UniqueIdentifier>{515f6616-f06d-4902-8adf-795b7bd49454}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\Light">
+      <UniqueIdentifier>{96dbbdc4-a6fd-404b-a32c-f09f751f8835}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -65,6 +68,9 @@
     <ClCompile Include="externals\imgui\include\imgui_impl_dx11.cpp">
       <Filter>ImGUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils\LightManager.cpp">
+      <Filter>Utility\Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp">
@@ -96,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="src\graphics\importer\Model.hpp">
       <Filter>Graphics\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\LightManager.hpp">
+      <Filter>Utility\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
