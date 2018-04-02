@@ -43,6 +43,7 @@
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp" />
     <ClInclude Include="src\graphics\components\Render.hpp" />
+    <ClInclude Include="src\graphics\components\Transform.hpp" />
     <ClInclude Include="src\graphics\importer\Mesh.hpp" />
     <ClInclude Include="src\graphics\importer\Model.hpp" />
     <ClInclude Include="src\graphics\Primitive.hpp" />

@@ -133,6 +133,9 @@
     <ClInclude Include="src\graphics\Transformable.hpp">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\components\Transform.hpp">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="src\res\shaders\Primitive.hlsl">

@@ -1,6 +1,6 @@
 #pragma once
-#include <memory>
 #include <graphics/Renderable.hpp>
+#include <memory>
 
 namespace px
 {

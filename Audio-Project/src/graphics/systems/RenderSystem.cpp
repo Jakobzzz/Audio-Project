@@ -1,10 +1,32 @@
 #include <graphics/systems/RenderSystem.hpp>
 #include <graphics/components/Render.hpp>
+#include <graphics/components/Transform.hpp>
+#include <utils/D3DUtility.hpp>
+#include <utils/Buffer.hpp>
+#include <utils/Camera.hpp>
+#include <utils/LightManager.hpp>
 
 namespace px
 {
-	RenderSystem::RenderSystem()
+	struct vsData
 	{
+		Matrix WVP;
+		Matrix world;
+	}cb;
+
+	struct psData
+	{
+		Vector3 lightDir;
+		float ambient;
+		Vector3 camPos;
+		float specular;
+	}lightCb;
+
+	RenderSystem::RenderSystem(Camera* camera, Buffer* buffer, LightManager * lightManager) : m_camera(camera), m_buffer(buffer), m_lightManager(lightManager)
+	{
+		//Prepare standard constant buffers
+		m_buffer->CreateConstantBuffer(&lightCb, sizeof(lightCb), 1, m_lightBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
+		m_buffer->CreateConstantBuffer(&cb, sizeof(cb), 1, m_constantBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
 	}
 
 	RenderSystem::~RenderSystem()
@@ -14,12 +36,25 @@ namespace px
 	void RenderSystem::update(EntityManager & es, EventManager & events, TimeDelta dt)
 	{
 		ComponentHandle<Render> render;
+		ComponentHandle<Transform> transform;
 
-		for (Entity entity : es.entities_with_components(render))
+		for (Entity entity : es.entities_with_components(render, transform))
 		{
-			//Shader::SetMatrix4x4(renderable->object->GetShader(), "model", transform->transform->GetTransform());
+			//Update constant buffer data
+			cb.world = transform->transform->GetTransform();
+			cb.WVP = transform->transform->GetTransform() * m_camera->GetViewProjectionMatrix();
+			m_buffer->UpdateConstantBuffer(&cb, m_constantBuffer.GetAddressOf());
+
+			lightCb.camPos = m_camera->GetCameraPosition(); 
+			lightCb.lightDir = m_lightManager->GetLightDirection();
+			lightCb.ambient = m_lightManager->GetAmbientStrength();
+			lightCb.specular = m_lightManager->GetSpecularStrength();
+			m_buffer->UpdateConstantBuffer(&lightCb, m_lightBuffer.GetAddressOf());
+
+			m_buffer->SetConstantBuffer(0, m_constantBuffer.GetAddressOf(), VS);
+			m_buffer->SetConstantBuffer(1, m_lightBuffer.GetAddressOf(), PS);
 			render->object->Draw();
-			//transform->transform->SetIdentity();
+			transform->transform->SetIdentity(); //Can't this be done in the set transform call?
 		}
 	}
 }

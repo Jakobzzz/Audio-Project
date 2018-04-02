@@ -36,8 +36,6 @@ namespace px
 
 	private:
 		Model * m_model;
-
-	private:
 		Shaders::ID m_shaderID;
 		Models::ID m_modelID;
 		std::string m_name;
