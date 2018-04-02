@@ -123,13 +123,28 @@ namespace px
 		static float ambient = m_lightManager->GetAmbientStrength();
 		static float specular = m_lightManager->GetSpecularStrength();
 
-		//const ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove;
-		ImGui::Begin("Scene");
-		ImGui::Text("Light");
-		ImGui::Spacing();
-		ImGui::InputFloat3("Direction", &lightDir.x, floatPrecision);
-		ImGui::DragFloat("Ambient", &ambient, 0.01f, 0.f, 1.f);
-		ImGui::DragFloat("Specular", &specular, 0.01f, 0.f, 1.f);
+		const ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove;
+		ImGui::Begin("Scene", NULL, ImVec2(0, 0), 1.0f, flags);
+
+		ImGui::SetNextTreeNodeOpen(true, 2);
+		if(ImGui::CollapsingHeader("Entities"))
+		{
+
+		}
+
+		ImGui::SetNextTreeNodeOpen(true, 2);
+		if (ImGui::CollapsingHeader("Transform"))
+		{
+
+		}
+
+		ImGui::SetNextTreeNodeOpen(true, 2);
+		if (ImGui::CollapsingHeader("Light"))
+		{
+			ImGui::InputFloat3("Direction", &lightDir.x, floatPrecision);
+			ImGui::DragFloat("Ambient", &ambient, 0.01f, 0.f, 1.f);
+			ImGui::DragFloat("Specular", &specular, 0.01f, 0.f, 1.f);
+		};
 		ImGui::End();
 
 		m_lightManager->SetLightDirection(lightDir);
@@ -149,7 +164,7 @@ namespace px
 	void Application::Render()
 	{
 		m_deviceContext->RSSetViewports(1, &m_vp);
-		m_deviceContext->OMSetRenderTargets(1, m_mainRenderTargetView.GetAddressOf(), NULL); //Imgui DX11 sample provides a default depth stencil view*
+		m_deviceContext->OMSetRenderTargets(1, m_mainRenderTargetView.GetAddressOf(), NULL); //ImGUI DX11 sample provides a default depth stencil view*
 		m_deviceContext->ClearRenderTargetView(m_mainRenderTargetView.Get(), DirectX::Colors::DarkGray);
 		//m_deviceContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 

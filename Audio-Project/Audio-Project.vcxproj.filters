@@ -26,6 +26,12 @@
     <Filter Include="Utility\Light">
       <UniqueIdentifier>{96dbbdc4-a6fd-404b-a32c-f09f751f8835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Components">
+      <UniqueIdentifier>{9e4d88e4-e862-4987-ac00-3cfb44f95107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Systems">
+      <UniqueIdentifier>{be9d5e44-899d-46e3-b215-a8bcc1b268d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -71,6 +77,12 @@
     <ClCompile Include="src\utils\LightManager.cpp">
       <Filter>Utility\Light</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Renderable.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\systems\RenderSystem.cpp">
+      <Filter>Graphics\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp">
@@ -105,6 +117,15 @@
     </ClInclude>
     <ClInclude Include="src\utils\LightManager.hpp">
       <Filter>Utility\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Renderable.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\components\Render.hpp">
+      <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\systems\RenderSystem.hpp">
+      <Filter>Graphics\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

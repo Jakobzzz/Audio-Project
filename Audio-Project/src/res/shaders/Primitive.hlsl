@@ -58,7 +58,7 @@ float4 PS_MAIN(VS_OUT input) : SV_Target
     //Diffuse 
     float3 norm = input.normal;
     //float3 lightDir = normalize(lightPos - input.fragPos);
-    float3 lightDir = normalize(lightDirection);
+    float3 lightDir = normalize(lightDirection); //- lightdir?
     float diff = max(dot(norm, lightDir), 0.0);
     float3 diffuse = diff * color;
 
