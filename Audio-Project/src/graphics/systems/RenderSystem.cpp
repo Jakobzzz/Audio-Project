@@ -25,8 +25,8 @@ namespace px
 	RenderSystem::RenderSystem(Camera* camera, Buffer* buffer, LightManager * lightManager) : m_camera(camera), m_buffer(buffer), m_lightManager(lightManager)
 	{
 		//Prepare standard constant buffers
-		m_buffer->CreateConstantBuffer(&lightCb, sizeof(lightCb), 1, m_lightBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
-		m_buffer->CreateConstantBuffer(&cb, sizeof(cb), 1, m_constantBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
+		m_buffer->CreateConstantBuffer(&lightCb, sizeof(lightCb), 1, m_lightBuffer.GetAddressOf());
+		m_buffer->CreateConstantBuffer(&cb, sizeof(cb), 1, m_constantBuffer.GetAddressOf());
 	}
 
 	RenderSystem::~RenderSystem()
@@ -41,6 +41,7 @@ namespace px
 		for (Entity entity : es.entities_with_components(render, transform))
 		{
 			//Update constant buffer data
+			transform->transform->SetTransform(); //Do this here for now
 			cb.world = transform->transform->GetTransform();
 			cb.WVP = transform->transform->GetTransform() * m_camera->GetViewProjectionMatrix();
 			m_buffer->UpdateConstantBuffer(&cb, m_constantBuffer.GetAddressOf());

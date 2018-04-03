@@ -1,5 +1,5 @@
 #include <graphics/Application.hpp>
-#include <graphics/Primitive.hpp>
+#include <graphics/Scene.hpp>
 #include <graphics/importer/Model.hpp>
 #include <utils/D3DUtility.hpp>
 #include <utils/Shader.hpp>
@@ -67,7 +67,7 @@ namespace px
 		m_buffer = std::make_unique<Buffer>(m_device.Get(), m_deviceContext.Get());
 		m_models = std::make_unique<Model>(m_buffer.get(), m_shaders.get());
 		m_lightManager = std::make_unique<LightManager>();
-		m_primitive = std::make_unique<Primitive>(m_camera.get(), m_buffer.get(), m_lightManager.get(), m_models.get());
+		m_scene = std::make_unique<Scene>(m_camera.get(), m_buffer.get(), m_models.get(), m_lightManager.get());
 		//m_soundManager = std::make_unique<SoundManager>();
 	}
 
@@ -168,15 +168,10 @@ namespace px
 		m_deviceContext->ClearRenderTargetView(m_mainRenderTargetView.Get(), DirectX::Colors::DarkGray);
 		//m_deviceContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-		RenderScene();
+		m_scene->UpdateSystems(0.0);
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		assert(!m_swapChain->Present(0, 0));
-	}
-
-	void Application::RenderScene()
-	{
-		m_primitive->Draw();
 	}
 
 	void Application::CreateRenderTargetAndDepthStencil()

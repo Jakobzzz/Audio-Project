@@ -28,8 +28,8 @@
     <ClCompile Include="src\graphics\Application.cpp" />
     <ClCompile Include="src\graphics\importer\Mesh.cpp" />
     <ClCompile Include="src\graphics\importer\Model.cpp" />
-    <ClCompile Include="src\graphics\Primitive.cpp" />
     <ClCompile Include="src\graphics\Renderable.cpp" />
+    <ClCompile Include="src\graphics\Scene.cpp" />
     <ClCompile Include="src\graphics\systems\RenderSystem.cpp" />
     <ClCompile Include="src\graphics\Transformable.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -46,8 +46,8 @@
     <ClInclude Include="src\graphics\components\Transform.hpp" />
     <ClInclude Include="src\graphics\importer\Mesh.hpp" />
     <ClInclude Include="src\graphics\importer\Model.hpp" />
-    <ClInclude Include="src\graphics\Primitive.hpp" />
     <ClInclude Include="src\graphics\Renderable.hpp" />
+    <ClInclude Include="src\graphics\Scene.hpp" />
     <ClInclude Include="src\graphics\systems\RenderSystem.hpp" />
     <ClInclude Include="src\graphics\Transformable.hpp" />
     <ClInclude Include="src\utils\Buffer.hpp" />

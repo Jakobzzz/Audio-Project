@@ -13,11 +13,11 @@ namespace px
 {
 	class Shader;
 	class Buffer;
-	class Primitive;
 	class Camera;
 	class SoundManager;
 	class LightManager;
 	class Model;
+	class Scene;
 
 	class Application
 	{
@@ -35,7 +35,6 @@ namespace px
 		void UpdateGUI();
 		void PollEvents();
 		void Render();
-		void RenderScene();
 		void CreateDeviceD3D(HWND hWnd);
 		void CreateViewport();
 
@@ -46,9 +45,9 @@ namespace px
 	private:
 		std::unique_ptr<Shader> m_shaders;
 		std::unique_ptr<Buffer> m_buffer;
-		std::unique_ptr<Primitive> m_primitive;
 		std::unique_ptr<Camera> m_camera;
 		std::unique_ptr<Model> m_models;
+		std::unique_ptr<Scene> m_scene;
 		std::unique_ptr<LightManager> m_lightManager;
 		std::unique_ptr<SoundManager> m_soundManager;
 

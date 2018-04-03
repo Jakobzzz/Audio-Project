@@ -18,11 +18,11 @@ namespace px
 
 	public:
 		void CreateVertexBuffer(const void* data, UINT size, UINT stride, ID3D11Buffer** buffer,
-								D3D11_CPU_ACCESS_FLAG flag = D3D11_CPU_ACCESS_READ, D3D11_USAGE usage = D3D11_USAGE_DEFAULT);
+								D3D11_CPU_ACCESS_FLAG flag = (D3D11_CPU_ACCESS_FLAG)0, D3D11_USAGE usage = D3D11_USAGE_DEFAULT);
 		void CreateIndexBuffer(const void* data, UINT size, UINT stride, ID3D11Buffer** buffer,
-								D3D11_CPU_ACCESS_FLAG flag = D3D11_CPU_ACCESS_READ, D3D11_USAGE usage = D3D11_USAGE_DEFAULT);
+								D3D11_CPU_ACCESS_FLAG flag = (D3D11_CPU_ACCESS_FLAG)0, D3D11_USAGE usage = D3D11_USAGE_DEFAULT);
 		void CreateConstantBuffer(const void* data, UINT size, UINT stride, ID3D11Buffer** buffer,
-								D3D11_CPU_ACCESS_FLAG flag = D3D11_CPU_ACCESS_READ, D3D11_USAGE usage = D3D11_USAGE_DEFAULT);
+								D3D11_CPU_ACCESS_FLAG flag = (D3D11_CPU_ACCESS_FLAG)0, D3D11_USAGE usage = D3D11_USAGE_DEFAULT);
 
 	public:
 		void UpdateConstantBuffer(const void* data, ID3D11Buffer** buffer);
@@ -35,8 +35,8 @@ namespace px
 		void DrawIndexed(UINT indexCount);
 
 	private:
-		void CreateBuffer(const void* data, UINT size, UINT stride, ID3D11Buffer** buffer, D3D11_BIND_FLAG bindFlag,
-						   D3D11_CPU_ACCESS_FLAG flag = D3D11_CPU_ACCESS_READ, D3D11_USAGE usage = D3D11_USAGE_DEFAULT);
+		void CreateBuffer(const void* data, UINT size, UINT stride, ID3D11Buffer** buffer, D3D11_BIND_FLAG bindFlag, 
+						  D3D11_CPU_ACCESS_FLAG flag, D3D11_USAGE usage);
 
 	private:
 		ID3D11Device * m_device;

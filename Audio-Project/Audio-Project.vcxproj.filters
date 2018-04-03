@@ -32,6 +32,9 @@
     <Filter Include="Graphics\Systems">
       <UniqueIdentifier>{be9d5e44-899d-46e3-b215-a8bcc1b268d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Scene">
+      <UniqueIdentifier>{40d64251-93bf-4870-8c3f-89531decaf9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -55,9 +58,6 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\utils\SoundManager.cpp">
       <Filter>Utility\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Primitive.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\importer\Mesh.cpp">
       <Filter>Graphics\Importer</Filter>
@@ -86,6 +86,9 @@
     <ClCompile Include="src\graphics\Transformable.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Scene.cpp">
+      <Filter>Graphics\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Application.hpp">
@@ -108,9 +111,6 @@
     </ClInclude>
     <ClInclude Include="src\utils\SoundManager.hpp">
       <Filter>Utility\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\Primitive.hpp">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\importer\Mesh.hpp">
       <Filter>Graphics\Importer</Filter>
@@ -135,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="src\graphics\components\Transform.hpp">
       <Filter>Graphics\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Scene.hpp">
+      <Filter>Graphics\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,8 +21,8 @@ namespace px
 	void Mesh::SetupMesh()
 	{
 		//Prepare all buffers with the data
-		m_buffer->CreateVertexBuffer(&m_vertices[0], m_vertices.size(), sizeof(VertexLayout), m_vertexBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
-		m_buffer->CreateIndexBuffer(&m_indices[0], m_indices.size(), sizeof(UINT), m_indexBuffer.GetAddressOf(), (D3D11_CPU_ACCESS_FLAG)0);
+		m_buffer->CreateVertexBuffer(&m_vertices[0], m_vertices.size(), sizeof(VertexLayout), m_vertexBuffer.GetAddressOf());
+		m_buffer->CreateIndexBuffer(&m_indices[0], m_indices.size(), sizeof(UINT), m_indexBuffer.GetAddressOf());
 
 		//Clear vectors from CPU memory as the memory is already uploaded to the GPU
 		m_nrOfIndices = m_indices.size();
