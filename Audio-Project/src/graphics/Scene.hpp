@@ -16,9 +16,10 @@ namespace px
 		Scene() = default;
 		Scene(Camera* camera, Buffer* buffer, Model* model, LightManager * lightManager);
 		~Scene();
+		void UpdateSystems(double dt);
 
 	public:
-		void UpdateSystems(double dt);
+		EntityManager & GetEntites();
 
 	private:
 		Buffer * m_buffer;

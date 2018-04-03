@@ -18,6 +18,10 @@ namespace px
 		entity.assign<Render>(std::make_unique<Renderable>(m_model, Models::Cube, Shaders::Basic, "Cube"));
 		entity.assign<Transform>(std::make_unique<Transformable>());
 
+		auto e = m_entities.create();
+		e.assign<Render>(std::make_unique<Renderable>(m_model, Models::Cube, Shaders::Basic, "Cube1"));
+		e.assign<Transform>(std::make_unique<Transformable>(Vector3(0.f, 3.f, 0.f)));
+
 		//Systems
 		m_systems.add<RenderSystem>(m_camera, m_buffer, m_lightManager);
 		m_systems.configure();
@@ -36,5 +40,10 @@ namespace px
 	void Scene::UpdateSystems(double dt)
 	{
 		m_systems.update<RenderSystem>(dt);
+	}
+
+	EntityManager & Scene::GetEntites()
+	{
+		return m_entities;
 	}
 }

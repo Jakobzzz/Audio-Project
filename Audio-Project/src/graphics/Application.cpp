@@ -1,6 +1,8 @@
 #include <graphics/Application.hpp>
 #include <graphics/Scene.hpp>
 #include <graphics/importer/Model.hpp>
+#include <graphics/components/Render.hpp>
+#include <graphics/components/Transform.hpp>
 #include <utils/D3DUtility.hpp>
 #include <utils/Shader.hpp>
 #include <utils/Buffer.hpp>
@@ -18,6 +20,12 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 
 namespace px
 {
+	struct ObjectInfo
+	{
+		Entity entity;
+		bool picked;
+	}selectedEntity;
+
 	Application::Application()
 	{
 		//Create application window
@@ -112,44 +120,84 @@ namespace px
 			m_camera->Update(0.0001f);
 			ImGui_ImplDX11_NewFrame();
 			UpdateGUI();
-			Render();
+			RenderScene();
 		}
 	}
 
 	void Application::UpdateGUI()
 	{
 		static int floatPrecision = 3;
-		static Vector3 lightDir = m_lightManager->GetLightDirection();
-		static float ambient = m_lightManager->GetAmbientStrength();
-		static float specular = m_lightManager->GetSpecularStrength();
-
 		const ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove;
+
 		ImGui::Begin("Scene", NULL, ImVec2(0, 0), 1.0f, flags);
 
-		ImGui::SetNextTreeNodeOpen(true, 2);
-		if(ImGui::CollapsingHeader("Entities"))
-		{
-
-		}
-
-		ImGui::SetNextTreeNodeOpen(true, 2);
-		if (ImGui::CollapsingHeader("Transform"))
-		{
-
-		}
-
-		ImGui::SetNextTreeNodeOpen(true, 2);
+		//ImGui::SetNextTreeNodeOpen(true, 2);
 		if (ImGui::CollapsingHeader("Light"))
 		{
+			static Vector3 lightDir = m_lightManager->GetLightDirection();
+			static float ambient = m_lightManager->GetAmbientStrength();
+			static float specular = m_lightManager->GetSpecularStrength();
+
+			ImGui::Spacing();
 			ImGui::InputFloat3("Direction", &lightDir.x, floatPrecision);
 			ImGui::DragFloat("Ambient", &ambient, 0.01f, 0.f, 1.f);
 			ImGui::DragFloat("Specular", &specular, 0.01f, 0.f, 1.f);
-		};
-		ImGui::End();
+			ImGui::Spacing();
 
-		m_lightManager->SetLightDirection(lightDir);
-		m_lightManager->SetAmbientStrength(ambient);
-		m_lightManager->SetSpecularStrength(specular);
+			m_lightManager->SetLightDirection(lightDir);
+			m_lightManager->SetAmbientStrength(ambient);
+			m_lightManager->SetSpecularStrength(specular);
+		};
+
+		ImGui::SetNextTreeNodeOpen(true, 2);
+		if (ImGui::CollapsingHeader("Inspector"))
+		{
+			if (selectedEntity.picked)
+			{
+				Vector3 position = selectedEntity.entity.component<Transform>()->transform->GetPosition();
+				Vector3 scale = selectedEntity.entity.component<Transform>()->transform->GetScale();
+				Vector3 rotation = selectedEntity.entity.component<Transform>()->transform->GetRotation();
+
+				ImGui::Spacing();
+				ImGui::Text("Entity: %s", selectedEntity.entity.component<Render>()->object->GetName().c_str());
+				ImGui::Spacing();
+				ImGui::Separator();
+				ImGui::InputFloat3("Position", &position.x, floatPrecision);
+				ImGui::Spacing();
+				ImGui::InputFloat3("Scale", &scale.x, floatPrecision);
+				ImGui::Spacing();
+				ImGui::InputFloat3("Rotation", &rotation.x, floatPrecision);
+				ImGui::Spacing();
+
+				selectedEntity.entity.component<Transform>()->transform->SetPosition(position);
+				selectedEntity.entity.component<Transform>()->transform->SetScale(scale);
+				selectedEntity.entity.component<Transform>()->transform->SetRotation(rotation);
+			}
+		}
+
+		ImGui::SetNextTreeNodeOpen(true, 2);
+		if (ImGui::CollapsingHeader("Entities"))
+		{
+			static unsigned int selected = 0;
+			unsigned int index = 0;
+			ComponentHandle<Render> render;
+			ComponentHandle<Transform> transform;
+
+			for (Entity entity : m_scene->GetEntites().entities_with_components(render, transform))
+			{
+				char label[128];
+				ImGui::Spacing();
+				sprintf(label, render->object->GetName().c_str());
+				if (ImGui::Selectable(label, selected == index))
+				{
+					selectedEntity.entity = entity;
+					selectedEntity.picked = true;
+					selected = index;
+				}
+				index++;
+			}
+		}
+		ImGui::End();
 	}
 
 	void Application::PollEvents()
@@ -161,7 +209,7 @@ namespace px
 			m_soundManager->Play(Sounds::Gun);*/
 	}
 
-	void Application::Render()
+	void Application::RenderScene()
 	{
 		m_deviceContext->RSSetViewports(1, &m_vp);
 		m_deviceContext->OMSetRenderTargets(1, m_mainRenderTargetView.GetAddressOf(), NULL); //ImGUI DX11 sample provides a default depth stencil view*

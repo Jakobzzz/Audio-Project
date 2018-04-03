@@ -34,7 +34,7 @@ namespace px
 		void Update();
 		void UpdateGUI();
 		void PollEvents();
-		void Render();
+		void RenderScene();
 		void CreateDeviceD3D(HWND hWnd);
 		void CreateViewport();
 

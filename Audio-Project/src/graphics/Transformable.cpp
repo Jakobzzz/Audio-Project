@@ -25,6 +25,7 @@ namespace px
 
 	void Transformable::SetTransform()
 	{
+		SetIdentity();
 		m_world = XMMatrixScalingFromVector(m_scale) * XMMatrixRotationRollPitchYaw(XMConvertToRadians(m_rotationAngles.x), XMConvertToRadians(m_rotationAngles.y),
 				  XMConvertToRadians(m_rotationAngles.z)) * XMMatrixTranslationFromVector(m_position);
 	}

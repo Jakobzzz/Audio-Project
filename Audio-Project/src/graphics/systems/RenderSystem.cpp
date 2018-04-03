@@ -41,7 +41,7 @@ namespace px
 		for (Entity entity : es.entities_with_components(render, transform))
 		{
 			//Update constant buffer data
-			transform->transform->SetTransform(); //Do this here for now
+			transform->transform->SetTransform();
 			cb.world = transform->transform->GetTransform();
 			cb.WVP = transform->transform->GetTransform() * m_camera->GetViewProjectionMatrix();
 			m_buffer->UpdateConstantBuffer(&cb, m_constantBuffer.GetAddressOf());
@@ -55,7 +55,6 @@ namespace px
 			m_buffer->SetConstantBuffer(0, m_constantBuffer.GetAddressOf(), VS);
 			m_buffer->SetConstantBuffer(1, m_lightBuffer.GetAddressOf(), PS);
 			render->object->Draw();
-			transform->transform->SetIdentity(); //Can't this be done in the set transform call?
 		}
 	}
 }
