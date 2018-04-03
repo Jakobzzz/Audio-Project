@@ -139,7 +139,7 @@ namespace px
 			static float specular = m_lightManager->GetSpecularStrength();
 
 			ImGui::Spacing();
-			ImGui::InputFloat3("Direction", &lightDir.x, floatPrecision);
+			ImGui::DragFloat3("Direction", &lightDir.x, 0.1f, -10000.f, 10000.f);
 			ImGui::DragFloat("Ambient", &ambient, 0.01f, 0.f, 1.f);
 			ImGui::DragFloat("Specular", &specular, 0.01f, 0.f, 1.f);
 			ImGui::Spacing();
@@ -162,11 +162,11 @@ namespace px
 				ImGui::Text("Entity: %s", selectedEntity.entity.component<Render>()->object->GetName().c_str());
 				ImGui::Spacing();
 				ImGui::Separator();
-				ImGui::InputFloat3("Position", &position.x, floatPrecision);
+				ImGui::DragFloat3("Position", &position.x, 0.1f, -10000.f, 10000.f);
 				ImGui::Spacing();
-				ImGui::InputFloat3("Scale", &scale.x, floatPrecision);
+				ImGui::DragFloat3("Scale", &scale.x, 0.1f, -10000.f, 10000.f);
 				ImGui::Spacing();
-				ImGui::InputFloat3("Rotation", &rotation.x, floatPrecision);
+				ImGui::DragFloat3("Rotation", &rotation.x, 0.1f, -360.f, 360.f);
 				ImGui::Spacing();
 
 				selectedEntity.entity.component<Transform>()->transform->SetPosition(position);
