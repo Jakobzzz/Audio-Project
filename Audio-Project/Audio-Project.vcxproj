@@ -118,19 +118,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(ProjectDir)/externals/entityx/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(ProjectDir)/externals/entityx/include;$(ProjectDir)/externals/json/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)/externals/fmod/lowlevel/lib;$(ProjectDir)/externals/fmod/studio/lib;$(ProjectDir)/externals/assimp/lib;$(ProjectDir)/externals/entityx/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(ProjectDir)/externals/entityx/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(ProjectDir)/externals/entityx/include;$(ProjectDir)/externals/json/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)/externals/fmod/lowlevel/lib;$(ProjectDir)/externals/fmod/studio/lib;$(ProjectDir)/externals/assimp/lib;$(ProjectDir)/externals/entityx/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(ProjectDir)/externals/entityx/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(ProjectDir)/externals/entityx/include;$(ProjectDir)/externals/json/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)/externals/fmod/lowlevel/lib;$(ProjectDir)/externals/fmod/studio/lib;$(ProjectDir)/externals/assimp/lib;$(ProjectDir)/externals/entityx/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(ProjectDir)/externals/entityx/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)/src;$(ProjectDir)/externals/fmod/lowlevel/inc;$(ProjectDir)/externals/fmod/studio/inc;$(ProjectDir)/externals/assimp/include;$(ProjectDir)/externals/imgui/include;$(ProjectDir)/externals/entityx/include;$(ProjectDir)/externals/json/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)/externals/fmod/lowlevel/lib;$(ProjectDir)/externals/fmod/studio/lib;$(ProjectDir)/externals/assimp/lib;$(ProjectDir)/externals/entityx/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

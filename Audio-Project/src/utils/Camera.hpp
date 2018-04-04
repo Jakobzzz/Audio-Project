@@ -19,13 +19,17 @@ namespace px
 	public:
 		void SetPosition(const Vector3 & position);
 		void SetFOV(const float & angle);
+		void SetYaw(const float & yaw);
+		void SetPitch(const float & pitch);
 
 	public:
 		Matrix GetViewMatrix() const;
 		Matrix GetViewProjectionMatrix() const;
 		Matrix GetProjectionMatrix() const;
-		Vector3 GetCameraPosition() const;
+		Vector3 GetPosition() const;
 		float GetFOV() const;
+		float GetYaw() const;
+		float GetPitch() const;
 
 	private:
 		void MoveCamera(float dt);

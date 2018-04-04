@@ -96,6 +96,16 @@ namespace px
 		m_fov = angle;
 	}
 
+	void Camera::SetYaw(const float & yaw)
+	{
+		m_camYaw = yaw;
+	}
+
+	void Camera::SetPitch(const float & pitch)
+	{
+		m_camPitch = pitch;
+	}
+
 	Matrix Camera::GetViewMatrix() const
 	{
 		return m_viewMatrix;
@@ -111,7 +121,7 @@ namespace px
 		return XMMatrixPerspectiveFovLH(XMConvertToRadians(m_fov), static_cast<float>(WIDTH / HEIGHT), 0.1f, 1000.f);
 	}
 
-	Vector3 Camera::GetCameraPosition() const
+	Vector3 Camera::GetPosition() const
 	{
 		return m_cameraPos;
 	}
@@ -119,6 +129,16 @@ namespace px
 	float Camera::GetFOV() const
 	{
 		return m_fov;
+	}
+
+	float Camera::GetYaw() const
+	{
+		return m_camYaw;
+	}
+
+	float Camera::GetPitch() const
+	{
+		return m_camPitch;
 	}
 }
 

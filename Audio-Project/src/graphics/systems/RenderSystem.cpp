@@ -46,7 +46,7 @@ namespace px
 			cb.WVP = transform->transform->GetTransform() * m_camera->GetViewProjectionMatrix();
 			m_buffer->UpdateConstantBuffer(&cb, m_constantBuffer.GetAddressOf());
 
-			lightCb.camPos = m_camera->GetCameraPosition(); 
+			lightCb.camPos = m_camera->GetPosition(); 
 			lightCb.lightDir = m_lightManager->GetLightDirection();
 			lightCb.ambient = m_lightManager->GetAmbientStrength();
 			lightCb.specular = m_lightManager->GetSpecularStrength();

@@ -22,6 +22,10 @@ namespace px
 		EntityManager & GetEntites();
 
 	private:
+		void LoadScene();
+		void WriteSceneData();
+
+	private:
 		Buffer * m_buffer;
 		Model* m_model;
 		Camera * m_camera;
