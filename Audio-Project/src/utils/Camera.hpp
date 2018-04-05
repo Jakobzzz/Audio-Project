@@ -27,6 +27,8 @@ namespace px
 		Matrix GetViewProjectionMatrix() const;
 		Matrix GetProjectionMatrix() const;
 		Vector3 GetPosition() const;
+		Vector3 GetCamForward() const;
+		Vector3 GetCamUp() const;
 		float GetFOV() const;
 		float GetYaw() const;
 		float GetPitch() const;

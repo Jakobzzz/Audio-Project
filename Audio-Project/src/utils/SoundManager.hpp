@@ -20,8 +20,9 @@ namespace px
 	{
 		enum ID
 		{
-			Birds,
-			Gun
+			Nature,
+			Footsteps,
+			Bell
 		};
 	}
 
@@ -55,7 +56,7 @@ namespace px
 		bool IsEventPlaying(const std::string & strEventName) const;
 
 	public:
-		//void Set3dListenerAndOrientation(const Vector3& vPosition, const Vector3& vLook, const Vector3& vUp);
+		void Set3dListenerAndOrientation(const Vector3& vPosition, const Vector3& vLook, const Vector3& vUp);
 		void SetEventParameter(const std::string & strEventName, const std::string & strParameterName, float fValue);
 		void SetChannel3dPosition(int nChannelId, const Vector3 & vPosition);
 		void SetChannelVolume(int nChannelId, float fVolumedB);

@@ -93,9 +93,12 @@ namespace px
 
 	void Application::LoadAudioFiles()
 	{
-		m_soundManager->LoadSound(Sounds::Birds, "src/res/sounds/birds.wav", false, false, true);
-		m_soundManager->LoadSound(Sounds::Gun, "src/res/sounds/gun.wav", false);
-		m_soundManager->Play(Sounds::Birds);
+		m_soundManager->LoadSound(Sounds::Bell, "src/res/sounds/gun.wav", true, true, true);
+		m_soundManager->LoadSound(Sounds::Nature, "src/res/sounds/ambientNature.wav", false, true, true);
+		m_soundManager->LoadSound(Sounds::Footsteps, "src/res/sounds/ambientFootsteps.wav", false, true, true);
+		m_soundManager->Play(Sounds::Nature, Vector3(0.f), -15.f);
+		m_soundManager->Play(Sounds::Footsteps, Vector3(0.f), -15.f);
+		m_soundManager->Play(Sounds::Bell, Vector3(-5.0f, 1.0f, 5.0f));
 	}
 
 	void Application::LoadShaders()
@@ -121,7 +124,14 @@ namespace px
 				continue;
 			}
 
-			//m_soundManager->Update();
+			//Update the camera attributes to unit vectors for the 3d listener
+			/*Vector3 forward = m_camera->GetCamForward();
+			Vector3 up = m_camera->GetCamUp();
+			forward.Normalize();
+			up.Normalize();
+
+			m_soundManager->Set3dListenerAndOrientation(m_camera->GetPosition(), forward, up);
+			m_soundManager->Update();*/
 			Input::Update();
 			PollEvents();
 			m_camera->Update(0.0001f);
@@ -220,7 +230,7 @@ namespace px
 	{
 		m_deviceContext->RSSetViewports(1, &m_vp);
 		m_deviceContext->OMSetRenderTargets(1, m_mainRenderTargetView.GetAddressOf(), m_depthStencilView.Get());
-		m_deviceContext->ClearRenderTargetView(m_mainRenderTargetView.Get(), DirectX::Colors::DarkGray);
+		m_deviceContext->ClearRenderTargetView(m_mainRenderTargetView.Get(), DirectX::Colors::SteelBlue);
 		m_deviceContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 		m_deviceContext->RSSetState(m_noCull.Get());

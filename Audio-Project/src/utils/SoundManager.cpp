@@ -38,6 +38,7 @@ namespace px
 		for (auto & it : pStoppedChannels)
 			m_channels.erase(it);
 
+		ErrorCheck(m_system->update());
 		ErrorCheck(m_studioSystem->update());
 	}
 
@@ -177,6 +178,11 @@ namespace px
 			return;
 
 		ErrorCheck(tFoundIt->second->setVolume(dbToVolume(fVolumedB)));
+	}
+
+	void SoundManager::Set3dListenerAndOrientation(const Vector3 & vPosition, const Vector3 & vLook, const Vector3 & vUp)
+	{
+		m_system->set3DListenerAttributes(0, &VectorToFmod(vPosition), NULL, &VectorToFmod(vLook), &VectorToFmod(vUp));
 	}
 
 	void SoundManager::SetEventParameter(const std::string &strEventName, const std::string &strParameterName, float fValue)

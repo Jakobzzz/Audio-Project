@@ -126,6 +126,16 @@ namespace px
 		return m_cameraPos;
 	}
 
+	Vector3 Camera::GetCamForward() const
+	{
+		return m_camTarget;
+	}
+
+	Vector3 Camera::GetCamUp() const
+	{
+		return m_camUp;
+	}
+
 	float Camera::GetFOV() const
 	{
 		return m_fov;
