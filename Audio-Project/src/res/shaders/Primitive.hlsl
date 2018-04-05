@@ -23,7 +23,7 @@ cbuffer cbData : register(b0)
 
 cbuffer lightCbData : register(b1)
 {
-    float3 lightDirection;
+    float3 lightPosition;
     float ambientStrength;
     float3 camPos;
     float specularStrength;
@@ -46,8 +46,7 @@ VS_OUT VS_MAIN(VS_IN input)
 float4 PS_MAIN(VS_OUT input) : SV_Target
 {
     //Hardcoded solid red color
-    float3 color = float3(1.f, 0.f, 0.f);
-    //float3 lightPos = float3(1.2f, 2.5f, 2.0f);
+    float3 color = float3(0.3f, 0.5f, 0.2f);
 
     //Light constants
     float shininess = 32.0f;
@@ -57,8 +56,8 @@ float4 PS_MAIN(VS_OUT input) : SV_Target
   	
     //Diffuse 
     float3 norm = input.normal;
-    //float3 lightDir = normalize(lightPos - input.fragPos);
-    float3 lightDir = normalize(lightDirection); //- lightdir?
+    float3 lightDir = normalize(lightPosition- input.fragPos);
+    //float3 lightDir = normalize(lightDirection); //- lightdir?
     float diff = max(dot(norm, lightDir), 0.0);
     float3 diffuse = diff * color;
 

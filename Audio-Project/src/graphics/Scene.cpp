@@ -38,8 +38,6 @@ namespace px
 
 	Scene::~Scene()
 	{
-		WriteSceneData();
-
 		//Destroy entities
 		ComponentHandle<Render> render;
 
@@ -60,6 +58,11 @@ namespace px
 		m_camera->SetYaw(reader["Camera"]["yaw"]);
 		m_camera->SetPitch(reader["Camera"]["pitch"]);
 
+		//Light
+		m_lightManager->SetLightPosition(FromVec3Json(reader["Light"]["position"]));
+		m_lightManager->SetAmbientStrength(reader["Light"]["ambient"]);
+		m_lightManager->SetSpecularStrength(reader["Light"]["specular"]);
+
 		//Entities
 		for (unsigned int i = 0; i < reader["Scene"]["count"]; ++i)
 		{
@@ -79,6 +82,9 @@ namespace px
 		data["Camera"]["position"] = ToVec3Json(m_camera->GetPosition());
 		data["Camera"]["yaw"] = m_camera->GetYaw();
 		data["Camera"]["pitch"] = m_camera->GetPitch();
+		data["Light"]["position"] = ToVec3Json(m_lightManager->GetLightPosition());
+		data["Light"]["ambient"] = m_lightManager->GetAmbientStrength();
+		data["Light"]["specular"] = m_lightManager->GetSpecularStrength();
 
 		unsigned int i = 0;
 		ComponentHandle<Transform> transform;

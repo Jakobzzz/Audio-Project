@@ -16,7 +16,7 @@ namespace px
 
 	struct psData
 	{
-		Vector3 lightDir;
+		Vector3 lightPos;
 		float ambient;
 		Vector3 camPos;
 		float specular;
@@ -47,7 +47,7 @@ namespace px
 			m_buffer->UpdateConstantBuffer(&cb, m_constantBuffer.GetAddressOf());
 
 			lightCb.camPos = m_camera->GetPosition(); 
-			lightCb.lightDir = m_lightManager->GetLightDirection();
+			lightCb.lightPos = m_lightManager->GetLightPosition();
 			lightCb.ambient = m_lightManager->GetAmbientStrength();
 			lightCb.specular = m_lightManager->GetSpecularStrength();
 			m_buffer->UpdateConstantBuffer(&lightCb, m_lightBuffer.GetAddressOf());

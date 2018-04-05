@@ -49,6 +49,12 @@ namespace px
 		io.NavFlags |= ImGuiNavFlags_EnableKeyboard;
 		ImGui::StyleColorsDark();
 
+		//Create no cull raster state
+		D3D11_RASTERIZER_DESC rDesc = {};
+		rDesc.FillMode = D3D11_FILL_SOLID;
+		rDesc.CullMode = D3D11_CULL_NONE;
+		m_device->CreateRasterizerState(&rDesc, m_noCull.GetAddressOf());;
+
 		//Load resources
 		LoadObjects();
 		LoadShaders();
@@ -57,7 +63,8 @@ namespace px
 	}
 
 	Application::~Application()
-	{		
+	{	
+		m_scene->WriteSceneData();
 		ImGui_ImplDX11_Shutdown();
 		ImGui::DestroyContext();
 		m_mainRenderTargetView.Reset();
@@ -129,22 +136,22 @@ namespace px
 		static int floatPrecision = 3;
 		const ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove;
 
-		ImGui::Begin("Scene", NULL, ImVec2(0, 0), 1.0f, flags);
+		ImGui::Begin("Scene", NULL,	ImVec2(0, 0), 1.f, flags);
 
 		//ImGui::SetNextTreeNodeOpen(true, 2);
 		if (ImGui::CollapsingHeader("Light"))
 		{
-			static Vector3 lightDir = m_lightManager->GetLightDirection();
+			static Vector3 lightPos = m_lightManager->GetLightPosition();
 			static float ambient = m_lightManager->GetAmbientStrength();
 			static float specular = m_lightManager->GetSpecularStrength();
 
 			ImGui::Spacing();
-			ImGui::DragFloat3("Direction", &lightDir.x, 0.1f, -10000.f, 10000.f);
+			ImGui::DragFloat3("LightPos", &lightPos.x, 0.1f, -10000.f, 10000.f);
 			ImGui::DragFloat("Ambient", &ambient, 0.01f, 0.f, 1.f);
 			ImGui::DragFloat("Specular", &specular, 0.01f, 0.f, 1.f);
 			ImGui::Spacing();
 
-			m_lightManager->SetLightDirection(lightDir);
+			m_lightManager->SetLightPosition(lightPos);
 			m_lightManager->SetAmbientStrength(ambient);
 			m_lightManager->SetSpecularStrength(specular);
 		};
@@ -212,10 +219,11 @@ namespace px
 	void Application::RenderScene()
 	{
 		m_deviceContext->RSSetViewports(1, &m_vp);
-		m_deviceContext->OMSetRenderTargets(1, m_mainRenderTargetView.GetAddressOf(), NULL); //ImGUI DX11 sample provides a default depth stencil view*
+		m_deviceContext->OMSetRenderTargets(1, m_mainRenderTargetView.GetAddressOf(), m_depthStencilView.Get());
 		m_deviceContext->ClearRenderTargetView(m_mainRenderTargetView.Get(), DirectX::Colors::DarkGray);
-		//m_deviceContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+		m_deviceContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+		m_deviceContext->RSSetState(m_noCull.Get());
 		m_scene->UpdateSystems(0.0);
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -231,26 +239,26 @@ namespace px
 		SAFE_RELEASE(&pBackBuffer);
 
 		//Create depth stencil view
-		//ID3D11Texture2D* depthStencilTexture;
-		//D3D11_TEXTURE2D_DESC depthStencilDesc = { 0 };
-		//depthStencilDesc.Width = WIDTH;
-		//depthStencilDesc.Height = HEIGHT;
-		//depthStencilDesc.MipLevels = 1;
-		//depthStencilDesc.ArraySize = 1;
-		//depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		//depthStencilDesc.SampleDesc.Count = 4;
-		//depthStencilDesc.SampleDesc.Quality = 0;
-		//depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
-		//depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-		//depthStencilDesc.CPUAccessFlags = 0;
-		//depthStencilDesc.MiscFlags = 0;
+		ID3D11Texture2D* depthStencilTexture;
+		D3D11_TEXTURE2D_DESC depthStencilDesc = { 0 };
+		depthStencilDesc.Width = WIDTH;
+		depthStencilDesc.Height = HEIGHT;
+		depthStencilDesc.MipLevels = 1;
+		depthStencilDesc.ArraySize = 1;
+		depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		depthStencilDesc.SampleDesc.Count = 4;
+		depthStencilDesc.SampleDesc.Quality = 0;
+		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+		depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		depthStencilDesc.CPUAccessFlags = 0;
+		depthStencilDesc.MiscFlags = 0;
 
-		////Create texture
-		//assert(!m_device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilTexture));
+		//Create texture
+		assert(!m_device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilTexture));
 
-		////Create the depth stencil view from the texture and description
-		//assert(!m_device->CreateDepthStencilView(depthStencilTexture, NULL, m_depthStencilView.GetAddressOf()));
-		//SAFE_RELEASE(&depthStencilTexture);
+		//Create the depth stencil view from the texture and description
+		assert(!m_device->CreateDepthStencilView(depthStencilTexture, NULL, m_depthStencilView.GetAddressOf()));
+		SAFE_RELEASE(&depthStencilTexture);
 	}
 
 	void Application::CreateDeviceD3D(HWND hWnd)
@@ -258,13 +266,13 @@ namespace px
 		//Setup swap chain
 		DXGI_SWAP_CHAIN_DESC sd = { 0 };
 		sd.BufferCount = 2;
-		sd.BufferDesc.Width = 0;
-		sd.BufferDesc.Height = 0;
+		sd.BufferDesc.Width = WIDTH;
+		sd.BufferDesc.Height = HEIGHT;
 		sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 		sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		sd.OutputWindow = hWnd;
-		sd.SampleDesc.Count = 1;
+		sd.SampleDesc.Count = 4;
 		sd.SampleDesc.Quality = 0;
 		sd.Windowed = TRUE;
 		sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;

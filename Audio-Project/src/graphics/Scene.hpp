@@ -17,13 +17,13 @@ namespace px
 		Scene(Camera* camera, Buffer* buffer, Model* model, LightManager * lightManager);
 		~Scene();
 		void UpdateSystems(double dt);
+		void WriteSceneData();
 
 	public:
 		EntityManager & GetEntites();
 
 	private:
 		void LoadScene();
-		void WriteSceneData();
 
 	private:
 		Buffer * m_buffer;

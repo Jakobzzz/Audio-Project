@@ -2,13 +2,13 @@
 
 namespace px
 {
-	LightManager::LightManager()  : m_lightDirection(Vector3(5.f, 20.f, -5.f)), m_ambientTerm(0.5f), m_specularTerm(0.5f)
+	LightManager::LightManager()  : m_position(Vector3(1.2f, 2.5f, 2.f)), m_ambientTerm(0.5f), m_specularTerm(0.5f)
 	{
 	}
 
-	void LightManager::SetLightDirection(const Vector3 & direction)
+	void LightManager::SetLightPosition(const Vector3 & direction)
 	{
-		m_lightDirection = direction;
+		m_position = direction;
 	}
 
 	void LightManager::SetAmbientStrength(const float & ambient)
@@ -21,9 +21,9 @@ namespace px
 		m_specularTerm = specular;
 	}
 
-	Vector3 LightManager::GetLightDirection() const
+	Vector3 LightManager::GetLightPosition() const
 	{
-		return m_lightDirection;
+		return m_position;
 	}
 
 	float LightManager::GetAmbientStrength() const

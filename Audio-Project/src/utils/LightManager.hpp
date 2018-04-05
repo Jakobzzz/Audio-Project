@@ -1,5 +1,5 @@
 /*
-	Basic light management class for a directional light source
+	Basic light management class for a point light source
 */
 
 #pragma once
@@ -18,17 +18,17 @@ namespace px
 		~LightManager() = default;
 
 	public:
-		void SetLightDirection(const Vector3 & direction);
+		void SetLightPosition(const Vector3 & position);
 		void SetAmbientStrength(const float & ambient);
 		void SetSpecularStrength(const float & specular);
 
 	public:
-		Vector3 GetLightDirection() const;
+		Vector3 GetLightPosition() const;
 		float GetAmbientStrength() const;
 		float GetSpecularStrength() const;
 
 	private:
-		Vector3 m_lightDirection;
+		Vector3 m_position;
 		float m_ambientTerm;
 		float m_specularTerm;
 	};
