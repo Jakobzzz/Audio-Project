@@ -4,8 +4,8 @@
 
 namespace px
 {
-	Renderable::Renderable(Model * model, const Models::ID & mId, const Shaders::ID & sId, const std::string & name) : m_model(model), m_modelID(mId), 
-																													   m_shaderID(sId), m_name(name)
+	Renderable::Renderable(Model * model, const Models::ID & mId, const Shaders::ID & sId, const Vector3 & color, const std::string & name) :
+							m_model(model), m_modelID(mId), m_shaderID(sId), m_name(name), m_color(color)
 	{
 	}
 
@@ -29,6 +29,11 @@ namespace px
 		m_name = name;
 	}
 
+	void Renderable::SetColor(const Vector3 & color)
+	{
+		m_color = color;
+	}
+
 	Shaders::ID Renderable::GetShader() const
 	{
 		return m_shaderID;
@@ -42,5 +47,10 @@ namespace px
 	std::string Renderable::GetName() const
 	{
 		return m_name;
+	}
+
+	Vector3 Renderable::GetColor() const
+	{
+		return m_color;
 	}
 }

@@ -27,6 +27,7 @@ cbuffer lightCbData : register(b1)
     float ambientStrength;
     float3 camPos;
     float specularStrength;
+    float3 color;
 }
 
 VS_OUT VS_MAIN(VS_IN input)
@@ -45,9 +46,6 @@ VS_OUT VS_MAIN(VS_IN input)
 
 float4 PS_MAIN(VS_OUT input) : SV_Target
 {
-    //Hardcoded solid red color
-    float3 color = float3(0.3f, 0.5f, 0.2f);
-
     //Light constants
     float shininess = 32.0f;
 

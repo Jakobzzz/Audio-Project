@@ -174,6 +174,7 @@ namespace px
 				Vector3 position = selectedEntity.entity.component<Transform>()->transform->GetPosition();
 				Vector3 scale = selectedEntity.entity.component<Transform>()->transform->GetScale();
 				Vector3 rotation = selectedEntity.entity.component<Transform>()->transform->GetRotation();
+				Vector3 material = selectedEntity.entity.component<Render>()->object->GetColor();
 
 				ImGui::Spacing();
 				ImGui::Text("Entity: %s", selectedEntity.entity.component<Render>()->object->GetName().c_str());
@@ -185,10 +186,13 @@ namespace px
 				ImGui::Spacing();
 				ImGui::DragFloat3("Rotation", &rotation.x, 0.1f, -360.f, 360.f);
 				ImGui::Spacing();
+				ImGui::ColorEdit3("Material", &material.x);
+				ImGui::Spacing();
 
 				selectedEntity.entity.component<Transform>()->transform->SetPosition(position);
 				selectedEntity.entity.component<Transform>()->transform->SetScale(scale);
 				selectedEntity.entity.component<Transform>()->transform->SetRotation(rotation);
+				selectedEntity.entity.component<Render>()->object->SetColor(material);
 			}
 		}
 
@@ -256,7 +260,7 @@ namespace px
 		depthStencilDesc.MipLevels = 1;
 		depthStencilDesc.ArraySize = 1;
 		depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		depthStencilDesc.SampleDesc.Count = 4;
+		depthStencilDesc.SampleDesc.Count = 8;
 		depthStencilDesc.SampleDesc.Quality = 0;
 		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
 		depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
@@ -282,7 +286,7 @@ namespace px
 		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 		sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		sd.OutputWindow = hWnd;
-		sd.SampleDesc.Count = 4;
+		sd.SampleDesc.Count = 8;
 		sd.SampleDesc.Quality = 0;
 		sd.Windowed = TRUE;
 		sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;

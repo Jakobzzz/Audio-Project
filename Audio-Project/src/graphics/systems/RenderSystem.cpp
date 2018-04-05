@@ -20,6 +20,8 @@ namespace px
 		float ambient;
 		Vector3 camPos;
 		float specular;
+		Vector3 color;
+		float pad;
 	}lightCb;
 
 	RenderSystem::RenderSystem(Camera* camera, Buffer* buffer, LightManager * lightManager) : m_camera(camera), m_buffer(buffer), m_lightManager(lightManager)
@@ -50,6 +52,7 @@ namespace px
 			lightCb.lightPos = m_lightManager->GetLightPosition();
 			lightCb.ambient = m_lightManager->GetAmbientStrength();
 			lightCb.specular = m_lightManager->GetSpecularStrength();
+			lightCb.color = render->object->GetColor();
 			m_buffer->UpdateConstantBuffer(&lightCb, m_lightBuffer.GetAddressOf());
 
 			m_buffer->SetConstantBuffer(0, m_constantBuffer.GetAddressOf(), VS);

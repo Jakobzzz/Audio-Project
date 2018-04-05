@@ -68,7 +68,7 @@ namespace px
 		{
 			std::string name = reader["Scene"]["names"][i];
 			auto entity = m_entities.create();
-			entity.assign<Render>(std::make_unique<Renderable>(m_model, reader[name]["model"], reader[name]["shader"], name));
+			entity.assign<Render>(std::make_unique<Renderable>(m_model, reader[name]["model"], reader[name]["shader"], FromVec3Json(reader[name]["color"]), name));
 			entity.assign<Transform>(std::make_unique<Transformable>(FromVec3Json(reader[name]["position"]), FromVec3Json(reader[name]["scale"]),
 																	 FromVec3Json(reader[name]["rotation"])));
 		}
@@ -95,6 +95,7 @@ namespace px
 			data["Scene"]["names"][i] = render->object->GetName();
 			data[render->object->GetName()]["model"] = render->object->GetModel();
 			data[render->object->GetName()]["shader"] = render->object->GetShader();
+			data[render->object->GetName()]["color"] = ToVec3Json(render->object->GetColor());
 			data[render->object->GetName()]["position"] = ToVec3Json(transform->transform->GetPosition());
 			data[render->object->GetName()]["rotation"] = ToVec3Json(transform->transform->GetRotation());
 			data[render->object->GetName()]["scale"] = ToVec3Json(transform->transform->GetScale());
