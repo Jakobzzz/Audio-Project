@@ -152,18 +152,12 @@ namespace px
 		if (ImGui::CollapsingHeader("Light"))
 		{
 			static Vector3 lightPos = m_lightManager->GetLightPosition();
-			static float ambient = m_lightManager->GetAmbientStrength();
-			static float specular = m_lightManager->GetSpecularStrength();
 
 			ImGui::Spacing();
 			ImGui::DragFloat3("LightPos", &lightPos.x, 0.1f, -10000.f, 10000.f);
-			ImGui::DragFloat("Ambient", &ambient, 0.01f, 0.f, 1.f);
-			ImGui::DragFloat("Specular", &specular, 0.01f, 0.f, 1.f);
 			ImGui::Spacing();
 
 			m_lightManager->SetLightPosition(lightPos);
-			m_lightManager->SetAmbientStrength(ambient);
-			m_lightManager->SetSpecularStrength(specular);
 		};
 
 		ImGui::SetNextTreeNodeOpen(true, 2);
@@ -175,6 +169,8 @@ namespace px
 				Vector3 scale = selectedEntity.entity.component<Transform>()->transform->GetScale();
 				Vector3 rotation = selectedEntity.entity.component<Transform>()->transform->GetRotation();
 				Vector3 material = selectedEntity.entity.component<Render>()->object->GetColor();
+				float ambient = selectedEntity.entity.component<Render>()->object->GetAmbientStrength();
+				float specular = selectedEntity.entity.component<Render>()->object->GetSpecularStrength();
 
 				ImGui::Spacing();
 				ImGui::Text("Entity: %s", selectedEntity.entity.component<Render>()->object->GetName().c_str());
@@ -186,13 +182,21 @@ namespace px
 				ImGui::Spacing();
 				ImGui::DragFloat3("Rotation", &rotation.x, 0.1f, -360.f, 360.f);
 				ImGui::Spacing();
+				ImGui::Separator();
+				ImGui::Spacing();
 				ImGui::ColorEdit3("Material", &material.x);
+				ImGui::Spacing();
+				ImGui::DragFloat("Ambient", &ambient, 0.01f, 0.f, 1.f);
+				ImGui::Spacing();
+				ImGui::DragFloat("Specular", &specular, 0.01f, 0.f, 1.f);
 				ImGui::Spacing();
 
 				selectedEntity.entity.component<Transform>()->transform->SetPosition(position);
 				selectedEntity.entity.component<Transform>()->transform->SetScale(scale);
 				selectedEntity.entity.component<Transform>()->transform->SetRotation(rotation);
 				selectedEntity.entity.component<Render>()->object->SetColor(material);
+				selectedEntity.entity.component<Render>()->object->SetAmbientStrength(ambient);
+				selectedEntity.entity.component<Render>()->object->SetSpecularStrength(specular);
 			}
 		}
 
@@ -225,9 +229,6 @@ namespace px
 	{
 		if (Input::GetKeyDown(Keyboard::Keys::Escape))
 			PostQuitMessage(0);
-
-		/*if (Input::GetMouseButtonDown(Input::MouseButton::LEFT))
-			m_soundManager->Play(Sounds::Gun);*/
 	}
 
 	void Application::RenderScene()

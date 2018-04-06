@@ -34,6 +34,16 @@ namespace px
 		m_color = color;
 	}
 
+	void Renderable::SetAmbientStrength(const float & ambient)
+	{
+		m_ambientTerm = ambient;
+	}
+
+	void Renderable::SetSpecularStrength(const float & specular)
+	{
+		m_specularTerm = specular;
+	}
+
 	Shaders::ID Renderable::GetShader() const
 	{
 		return m_shaderID;
@@ -52,5 +62,15 @@ namespace px
 	Vector3 Renderable::GetColor() const
 	{
 		return m_color;
+	}
+
+	float Renderable::GetAmbientStrength() const
+	{
+		return m_ambientTerm;
+	}
+
+	float Renderable::GetSpecularStrength() const
+	{
+		return m_specularTerm;
 	}
 }

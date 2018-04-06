@@ -23,6 +23,7 @@ namespace px
 
 	void Camera::MoveCamera(float dt)
 	{
+		//m_cameraPos.y = 1.5f;
 		Input::ResetScrollWheelValue();
 		float velocity = m_movementSpeed * dt;
 

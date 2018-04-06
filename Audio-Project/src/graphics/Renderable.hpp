@@ -34,12 +34,16 @@ namespace px
 		void SetModel(const Models::ID & id);
 		void SetName(const std::string & name);
 		void SetColor(const Vector3 & color);
+		void SetAmbientStrength(const float & ambient);
+		void SetSpecularStrength(const float & specular);
 
 	public:
 		Shaders::ID GetShader() const;
 		Models::ID GetModel() const;
 		std::string GetName() const;
 		Vector3 GetColor() const;
+		float GetAmbientStrength() const;
+		float GetSpecularStrength() const;
 
 	private:
 		Model * m_model;
@@ -47,5 +51,7 @@ namespace px
 		Models::ID m_modelID;
 		std::string m_name;
 		Vector3 m_color;
+		float m_ambientTerm;
+		float m_specularTerm;
 	};
 }

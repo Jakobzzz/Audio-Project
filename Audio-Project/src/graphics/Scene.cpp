@@ -60,8 +60,6 @@ namespace px
 
 		//Light
 		m_lightManager->SetLightPosition(FromVec3Json(reader["Light"]["position"]));
-		m_lightManager->SetAmbientStrength(reader["Light"]["ambient"]);
-		m_lightManager->SetSpecularStrength(reader["Light"]["specular"]);
 
 		//Entities
 		for (unsigned int i = 0; i < reader["Scene"]["count"]; ++i)
@@ -69,6 +67,8 @@ namespace px
 			std::string name = reader["Scene"]["names"][i];
 			auto entity = m_entities.create();
 			entity.assign<Render>(std::make_unique<Renderable>(m_model, reader[name]["model"], reader[name]["shader"], FromVec3Json(reader[name]["color"]), name));
+			entity.component<Render>()->object->SetAmbientStrength(reader[name]["ambient"]);
+			entity.component<Render>()->object->SetSpecularStrength(reader[name]["specular"]);
 			entity.assign<Transform>(std::make_unique<Transformable>(FromVec3Json(reader[name]["position"]), FromVec3Json(reader[name]["scale"]),
 																	 FromVec3Json(reader[name]["rotation"])));
 		}
@@ -83,8 +83,6 @@ namespace px
 		data["Camera"]["yaw"] = m_camera->GetYaw();
 		data["Camera"]["pitch"] = m_camera->GetPitch();
 		data["Light"]["position"] = ToVec3Json(m_lightManager->GetLightPosition());
-		data["Light"]["ambient"] = m_lightManager->GetAmbientStrength();
-		data["Light"]["specular"] = m_lightManager->GetSpecularStrength();
 
 		unsigned int i = 0;
 		ComponentHandle<Transform> transform;
@@ -95,6 +93,8 @@ namespace px
 			data["Scene"]["names"][i] = render->object->GetName();
 			data[render->object->GetName()]["model"] = render->object->GetModel();
 			data[render->object->GetName()]["shader"] = render->object->GetShader();
+			data[render->object->GetName()]["ambient"] = render->object->GetAmbientStrength();
+			data[render->object->GetName()]["specular"] = render->object->GetSpecularStrength();
 			data[render->object->GetName()]["color"] = ToVec3Json(render->object->GetColor());
 			data[render->object->GetName()]["position"] = ToVec3Json(transform->transform->GetPosition());
 			data[render->object->GetName()]["rotation"] = ToVec3Json(transform->transform->GetRotation());

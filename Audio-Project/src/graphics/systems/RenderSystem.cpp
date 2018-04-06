@@ -50,8 +50,8 @@ namespace px
 
 			lightCb.camPos = m_camera->GetPosition(); 
 			lightCb.lightPos = m_lightManager->GetLightPosition();
-			lightCb.ambient = m_lightManager->GetAmbientStrength();
-			lightCb.specular = m_lightManager->GetSpecularStrength();
+			lightCb.ambient = render->object->GetAmbientStrength();
+			lightCb.specular = render->object->GetSpecularStrength();
 			lightCb.color = render->object->GetColor();
 			m_buffer->UpdateConstantBuffer(&lightCb, m_lightBuffer.GetAddressOf());
 

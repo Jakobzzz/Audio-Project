@@ -19,17 +19,11 @@ namespace px
 
 	public:
 		void SetLightPosition(const Vector3 & position);
-		void SetAmbientStrength(const float & ambient);
-		void SetSpecularStrength(const float & specular);
 
 	public:
 		Vector3 GetLightPosition() const;
-		float GetAmbientStrength() const;
-		float GetSpecularStrength() const;
 
 	private:
 		Vector3 m_position;
-		float m_ambientTerm;
-		float m_specularTerm;
 	};
 }
