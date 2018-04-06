@@ -94,73 +94,6 @@ namespace px
 		return nChannelId;
 	}
 
-	void SoundManager::LoadBank(const std::string& strBankName, FMOD_STUDIO_LOAD_BANK_FLAGS flags)
-	{
-		auto tFoundIt = m_banks.find(strBankName);
-		if (tFoundIt != m_banks.end())
-			return;
-
-		FMOD::Studio::Bank* pBank;
-		ErrorCheck(m_studioSystem->loadBankFile(strBankName.c_str(), flags, &pBank));
-		if (pBank)
-			m_banks[strBankName] = pBank;
-	}
-
-	void SoundManager::LoadEvent(const std::string& strEventName) 
-	{
-		auto tFoundit = m_events.find(strEventName);
-		if (tFoundit != m_events.end())
-			return;
-
-		FMOD::Studio::EventDescription* pEventDescription = NULL;
-		ErrorCheck(m_studioSystem->getEvent(strEventName.c_str(), &pEventDescription));
-		if (pEventDescription) 
-		{
-			FMOD::Studio::EventInstance* pEventInstance = NULL;
-			ErrorCheck(pEventDescription->createInstance(&pEventInstance));
-			if (pEventInstance)
-				m_events[strEventName] = pEventInstance;
-		}
-	}
-
-	void SoundManager::PlayEvent(const std::string &strEventName)
-	{
-		auto tFoundit = m_events.find(strEventName);
-		if (tFoundit == m_events.end()) 
-		{
-			LoadEvent(strEventName);
-			tFoundit = m_events.find(strEventName);
-			if (tFoundit == m_events.end())
-				return;
-		}
-
-		tFoundit->second->start();
-	}
-
-	void SoundManager::StopEvent(const std::string &strEventName, bool bImmediate)
-	{
-		auto tFoundIt = m_events.find(strEventName);
-		if (tFoundIt == m_events.end())
-			return;
-
-		FMOD_STUDIO_STOP_MODE eMode;
-		eMode = bImmediate ? FMOD_STUDIO_STOP_IMMEDIATE : FMOD_STUDIO_STOP_ALLOWFADEOUT;
-		ErrorCheck(tFoundIt->second->stop(eMode));
-	}
-
-	bool SoundManager::IsEventPlaying(const std::string &strEventName) const
-	{
-		auto tFoundIt = m_events.find(strEventName);
-		if (tFoundIt == m_events.end())
-			return false;
-
-		FMOD_STUDIO_PLAYBACK_STATE* state = NULL;
-		if (tFoundIt->second->getPlaybackState(state) == FMOD_STUDIO_PLAYBACK_PLAYING)
-			return true;
-
-		return false;
-	}
-
 	void SoundManager::SetChannel3dPosition(int nChannelId, const Vector3& vPosition)
 	{
 		auto tFoundIt = m_channels.find(nChannelId);
@@ -183,30 +116,7 @@ namespace px
 	void SoundManager::Set3dListenerAndOrientation(const Vector3 & vPosition, const Vector3 & vLook, const Vector3 & vUp)
 	{
 		m_system->set3DListenerAttributes(0, &VectorToFmod(vPosition), NULL, &VectorToFmod(vLook), &VectorToFmod(vUp));
-	}
-
-	void SoundManager::SetEventParameter(const std::string &strEventName, const std::string &strParameterName, float fValue)
-	{
-		auto tFoundIt = m_events.find(strEventName);
-		if (tFoundIt == m_events.end())
-			return;
-
-		FMOD::Studio::ParameterInstance* pParameter = NULL;
-		ErrorCheck(tFoundIt->second->getParameter(strParameterName.c_str(), &pParameter));
-		ErrorCheck(pParameter->setValue(fValue));
-	}
-
-
-	void SoundManager::GetEventParameter(const std::string &strEventName, const std::string &strParameterName, float* parameter)
-	{
-		auto tFoundIt = m_events.find(strEventName);
-		if (tFoundIt == m_events.end())
-			return;
-		FMOD::Studio::ParameterInstance* pParameter = NULL;
-
-		ErrorCheck(tFoundIt->second->getParameter(strParameterName.c_str(), &pParameter));
-		ErrorCheck(pParameter->getValue(parameter));
-	}
+	}	
 
 	FMOD_VECTOR SoundManager::VectorToFmod(const Vector3& vPosition)
 	{

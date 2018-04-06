@@ -32,6 +32,7 @@ namespace px
 		void LoadAudioFiles();
 		void LoadShaders();
 		void Update();
+		void UpdateSounds();
 		void UpdateGUI();
 		void PollEvents();
 		void RenderScene();
