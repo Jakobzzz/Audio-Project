@@ -23,7 +23,7 @@ namespace px
 
 	void Camera::MoveCamera(float dt)
 	{
-		//m_cameraPos.y = 1.5f;
+		m_cameraPos.y = 1.5f;
 		Input::ResetScrollWheelValue();
 		float velocity = m_movementSpeed * dt;
 
@@ -50,24 +50,10 @@ namespace px
 		m_lastMousePos = m_currentMousePos;
 		m_currentMousePos = Vector2(static_cast<float>(Input::GetMousePositionX()), static_cast<float>(Input::GetMousePositionY()));
 
-		//if (Mouse::MODE_RELATIVE)
-		//{
-		//	//As we use relative mouse-coordinates delta is already calculated
-		//	Vector2 mouseDelta = m_currentMousePos * m_mouseSensivity;
-		//	m_camYaw += mouseDelta.x;
-		//	m_camPitch += mouseDelta.y;
-
-		//	//Restrict pitch angle
-		//	if (m_camPitch > 89.0f)
-		//		m_camPitch = 89.0f;
-
-		//	if (m_camPitch < -89.0f)
-		//		m_camPitch = -89.0f;
-		//}
-		if (Input::GetMouseButton(Input::MouseButton::RIGHT))
+		if (Mouse::MODE_RELATIVE)
 		{
-			//Calculate delta
-			Vector2 mouseDelta = (m_currentMousePos - m_lastMousePos) * m_mouseSensivity;
+			//As we use relative mouse-coordinates delta is already calculated
+			Vector2 mouseDelta = m_currentMousePos * m_mouseSensivity;
 			m_camYaw += mouseDelta.x;
 			m_camPitch += mouseDelta.y;
 
@@ -78,6 +64,20 @@ namespace px
 			if (m_camPitch < -89.0f)
 				m_camPitch = -89.0f;
 		}
+		//if (Input::GetMouseButton(Input::MouseButton::RIGHT))
+		//{
+		//	//Calculate delta
+		//	Vector2 mouseDelta = (m_currentMousePos - m_lastMousePos) * m_mouseSensivity;
+		//	m_camYaw += mouseDelta.x;
+		//	m_camPitch += mouseDelta.y;
+
+		//	//Restrict pitch angle
+		//	if (m_camPitch > 89.0f)
+		//		m_camPitch = 89.0f;
+
+		//	if (m_camPitch < -89.0f)
+		//		m_camPitch = -89.0f;
+		//}
 
 		//Calculate target vector with Euler angles
 		m_rotationMatrix = XMMatrixRotationRollPitchYaw(XMConvertToRadians(m_camPitch), XMConvertToRadians(m_camYaw), 0.f);

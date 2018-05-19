@@ -95,17 +95,17 @@ namespace px
 
 	void Application::LoadAudioFiles()
 	{
-		m_soundManager->LoadSound(Sounds::Churchbell, "src/res/sounds/churchbell_3d.wav", true, true, true);
-		m_soundManager->LoadSound(Sounds::Gun, "src/res/sounds/gun_3d.wav", true, true, true);
-		m_soundManager->LoadSound(Sounds::Slot_machine, "src/res/sounds/slot_machine_3d.wav", true, true, true);
-		m_soundManager->LoadSound(Sounds::Nature, "src/res/sounds/ambientNature.wav", false, true, true);
-		m_soundManager->LoadSound(Sounds::Footsteps, "src/res/sounds/ambientFootsteps.wav", false, true, true);
+		m_soundManager->LoadSound(Sounds::Churchbell, "src/res/sounds/churchbell_3d.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Gun, "src/res/sounds/gun_3d.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Slot_machine, "src/res/sounds/slot_machine_3d.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Nature, "src/res/sounds/ambientNature.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Footsteps, "src/res/sounds/ambientFootsteps.wav", true, true);
 
-		m_soundManager->Play(Sounds::Nature, Vector3(0.f), -15.f);
-		m_soundManager->Play(Sounds::Footsteps, Vector3(0.f), -15.f);
-		m_channels[Sounds::Churchbell] = m_soundManager->Play(Sounds::Churchbell, Vector3(-5.0f, 1.0f, 5.0f));
-		m_channels[Sounds::Slot_machine] = m_soundManager->Play(Sounds::Slot_machine, Vector3(-5.0f, 1.0f, 5.0f));
-		m_channels[Sounds::Gun] = m_soundManager->Play(Sounds::Gun, Vector3(-5.0f, 1.0f, 5.0f));
+		m_channels[Sounds::Nature] = m_soundManager->Play(Sounds::Nature, Vector3(0.f), -15.f);
+		m_channels[Sounds::Footsteps] = m_soundManager->Play(Sounds::Footsteps, Vector3(0.f), -5.f);
+		m_channels[Sounds::Churchbell] = m_soundManager->Play(Sounds::Churchbell);
+		m_channels[Sounds::Slot_machine] = m_soundManager->Play(Sounds::Slot_machine);
+		m_channels[Sounds::Gun] = m_soundManager->Play(Sounds::Gun);
 	}
 
 	void Application::LoadShaders()
@@ -131,20 +131,13 @@ namespace px
 				continue;
 			}
 
-			//Update the camera attributes to unit vectors for the 3d listener
-			Vector3 forward = m_camera->GetCamForward();
-			Vector3 up = m_camera->GetCamUp();
-			forward.Normalize();
-			up.Normalize();
-
 			UpdateSounds();
-			m_soundManager->Set3dListenerAndOrientation(m_camera->GetPosition(), forward, up);
 			m_soundManager->Update();
 			Input::Update();
 			PollEvents();
 			m_camera->Update(0.0001f);
-			ImGui_ImplDX11_NewFrame();
-			UpdateGUI();
+			//ImGui_ImplDX11_NewFrame();
+			//UpdateGUI();
 			RenderScene();
 		}
 	}
@@ -157,11 +150,14 @@ namespace px
 		for (Entity entity : m_scene->GetEntites().entities_with_components(render, transform))
 		{
 			if (render->object->GetName() == "Yellow")
-				m_soundManager->SetChannel3dPosition(m_channels[Sounds::Churchbell], transform->transform->GetPosition());
+				m_soundManager->SetChannelVolume(m_channels.find(Sounds::Churchbell)->second, 
+								m_soundManager->InverseSqLaw(transform->transform->GetPosition(), m_camera->GetPosition(), 3.f));	
 			else if (render->object->GetName() == "Blue")
-				m_soundManager->SetChannel3dPosition(m_channels[Sounds::Gun], transform->transform->GetPosition());
+				m_soundManager->SetChannelVolume(m_channels.find(Sounds::Gun)->second, 
+								m_soundManager->InverseSqLaw(transform->transform->GetPosition(), m_camera->GetPosition(), 3.f));
 			else if (render->object->GetName() == "Red")
-				m_soundManager->SetChannel3dPosition(m_channels[Sounds::Slot_machine], transform->transform->GetPosition());	
+				m_soundManager->SetChannelVolume(m_channels.find(Sounds::Slot_machine)->second,
+								m_soundManager->InverseSqLaw(transform->transform->GetPosition(), m_camera->GetPosition(), 1.1f));
 		}
 	}
 
@@ -264,8 +260,8 @@ namespace px
 
 		m_deviceContext->RSSetState(m_noCull.Get());
 		m_scene->UpdateSystems(0.0);
-		ImGui::Render();
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+		//ImGui::Render();
+		//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		assert(!m_swapChain->Present(0, 0));
 	}
 

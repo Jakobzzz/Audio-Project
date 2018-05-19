@@ -42,14 +42,14 @@ namespace px
 		ErrorCheck(m_studioSystem->update());
 	}
 
-	void SoundManager::LoadSound(const Sounds::ID & id, const std::string & strSoundName, bool b3d, bool bLooping, bool bStream)
+	void SoundManager::LoadSound(const Sounds::ID & id, const std::string & strSoundName, bool bLooping, bool bStream)
 	{
 		SoundInfo info;
 		info.filePath = strSoundName;
 
-		//Load 2D and 3D sounds
+		//Load 2D sounds
 		FMOD_MODE eMode = FMOD_DEFAULT;
-		eMode |= b3d ? FMOD_3D : FMOD_2D;
+		eMode |= FMOD_2D;
 		eMode |= bLooping ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
 		eMode |= bStream ? FMOD_CREATESTREAM : FMOD_CREATECOMPRESSEDSAMPLE;
 		FMOD::Sound* pSound = nullptr;
@@ -79,29 +79,12 @@ namespace px
 		ErrorCheck(m_system->playSound(tFoundIt->second.sound, nullptr, true, &pChannel));
 		if (pChannel)
 		{
-			FMOD_MODE currMode;
-			tFoundIt->second.sound->getMode(&currMode);
-			if (currMode & FMOD_3D) 
-			{
-				FMOD_VECTOR position = VectorToFmod(vPosition);
-				ErrorCheck(pChannel->set3DAttributes(&position, nullptr));
-			}
 			ErrorCheck(pChannel->setVolume(dbToVolume(fVolumedB)));
 			ErrorCheck(pChannel->setPaused(false));
 			m_channels[nChannelId] = pChannel;
 		}
 
 		return nChannelId;
-	}
-
-	void SoundManager::SetChannel3dPosition(int nChannelId, const Vector3& vPosition)
-	{
-		auto tFoundIt = m_channels.find(nChannelId);
-		if (tFoundIt == m_channels.end())
-			return;
-
-		FMOD_VECTOR position = VectorToFmod(vPosition);
-		ErrorCheck(tFoundIt->second->set3DAttributes(&position, NULL));
 	}
 
 	void SoundManager::SetChannelVolume(int nChannelId, float fVolumedB)
@@ -113,11 +96,6 @@ namespace px
 		ErrorCheck(tFoundIt->second->setVolume(dbToVolume(fVolumedB)));
 	}
 
-	void SoundManager::Set3dListenerAndOrientation(const Vector3 & vPosition, const Vector3 & vLook, const Vector3 & vUp)
-	{
-		m_system->set3DListenerAttributes(0, &VectorToFmod(vPosition), NULL, &VectorToFmod(vLook), &VectorToFmod(vUp));
-	}	
-
 	FMOD_VECTOR SoundManager::VectorToFmod(const Vector3& vPosition)
 	{
 		FMOD_VECTOR fVec;
@@ -125,6 +103,12 @@ namespace px
 		fVec.y = vPosition.y;
 		fVec.z = vPosition.z;
 		return fVec;
+	}
+
+	float SoundManager::InverseSqLaw(const Vector3 & noisePos, const Vector3 & listenerPos, const float & startVolume)
+	{
+		//Apply inverse square law for attenuation (3D sound)
+		return VolumeTodB(startVolume) - VolumeTodB(Vector3Magnitude(noisePos - listenerPos));
 	}
 
 	float SoundManager::dbToVolume(float dB)
@@ -135,6 +119,11 @@ namespace px
 	float SoundManager::VolumeTodB(float volume)
 	{
 		return 20.0f * log10f(volume);
+	}
+
+	float SoundManager::Vector3Magnitude(const Vector3 & v)
+	{
+		return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
 	}
 
 	int SoundManager::ErrorCheck(FMOD_RESULT result)

@@ -43,24 +43,24 @@ namespace px
 
 	public:
 		void Update();
-		void LoadSound(const Sounds::ID & id, const std::string & strSoundName, bool b3d = true, bool bLooping = false, bool bStream = false);
+		void LoadSound(const Sounds::ID & id, const std::string & strSoundName, bool bLooping = false, bool bStream = false);
 		void UnloadSound(const Sounds::ID & id);
 
 	public:
 		int Play(const Sounds::ID & id, const Vector3 & vPos = Vector3(0.f), float fVolumedB = 0.f);
 
 	public:
-		void Set3dListenerAndOrientation(const Vector3& vPosition, const Vector3& vLook, const Vector3& vUp);
-		void SetChannel3dPosition(int nChannelId, const Vector3 & vPosition);
 		void SetChannelVolume(int nChannelId, float fVolumedB);
 
 	public:
 		float dbToVolume(float dB);
 		float VolumeTodB(float volume);
 		FMOD_VECTOR VectorToFmod(const Vector3& vPosition);	
+		float InverseSqLaw(const Vector3 & noisePos, const Vector3 & listenerPos, const float & startVolume = 1.f);
 
 	private:
 		int ErrorCheck(FMOD_RESULT result);
+		float Vector3Magnitude(const Vector3 & v);
 
 	private:
 		FMOD::Studio::System* m_studioSystem;
