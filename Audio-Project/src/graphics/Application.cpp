@@ -262,7 +262,7 @@ namespace px
 		m_scene->UpdateSystems(0.0);
 		//ImGui::Render();
 		//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-		assert(!m_swapChain->Present(0, 0));
+		m_swapChain->Present(0, 0);
 	}
 
 	void Application::CreateRenderTargetAndDepthStencil()
@@ -289,7 +289,7 @@ namespace px
 		depthStencilDesc.MiscFlags = 0;
 
 		//Create texture
-		assert(!m_device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilTexture));
+		assert(m_device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilTexture));
 
 		//Create the depth stencil view from the texture and description
 		assert(!m_device->CreateDepthStencilView(depthStencilTexture, NULL, m_depthStencilView.GetAddressOf()));
