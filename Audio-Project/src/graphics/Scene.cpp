@@ -50,7 +50,7 @@ namespace px
 	void Scene::LoadScene()
 	{
 		//Read scene data from json file
-		std::ifstream i("src/res/metadata/scene.json");
+		std::ifstream i("res/metadata/scene.json");
 		json reader; i >> reader; i.close();
 
 		//Camera
@@ -103,7 +103,7 @@ namespace px
 		}
 
 		//Dump information
-		std::ofstream o("src/res/metadata/scene.json");
+		std::ofstream o("res/metadata/scene.json");
 		o << std::setw(3) << data << std::endl;
 	}
 

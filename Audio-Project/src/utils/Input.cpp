@@ -16,7 +16,7 @@ namespace px
 		m_mouse = std::make_unique<Mouse>();
 
 		m_mouse->SetWindow(wndHandle);
-		m_mouse->SetMode(Mouse::MODE_ABSOLUTE);
+		m_mouse->SetMode(Mouse::MODE_RELATIVE);
 	}
 
 	void Input::SetMouseInputMode(Mouse::Mode mode)

@@ -90,16 +90,16 @@ namespace px
 
 	void Application::LoadModels()
 	{
-		m_models->LoadModel(Models::Cube, "src/res/models/cube.obj");
+		m_models->LoadModel(Models::Cube, "res/models/cube.obj");
 	}
 
 	void Application::LoadAudioFiles()
 	{
-		m_soundManager->LoadSound(Sounds::Churchbell, "src/res/sounds/churchbell_3d.wav", true, true);
-		m_soundManager->LoadSound(Sounds::Gun, "src/res/sounds/gun_3d.wav", true, true);
-		m_soundManager->LoadSound(Sounds::Slot_machine, "src/res/sounds/slot_machine_3d.wav", true, true);
-		m_soundManager->LoadSound(Sounds::Nature, "src/res/sounds/ambientNature.wav", true, true);
-		m_soundManager->LoadSound(Sounds::Footsteps, "src/res/sounds/ambientFootsteps.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Churchbell, "res/sounds/churchbell_3d.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Gun, "res/sounds/gun_3d.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Slot_machine, "res/sounds/slot_machine_3d.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Nature, "res/sounds/ambientNature.wav", true, true);
+		m_soundManager->LoadSound(Sounds::Footsteps, "res/sounds/ambientFootsteps.wav", true, true);
 
 		m_channels[Sounds::Nature] = m_soundManager->Play(Sounds::Nature, Vector3(0.f), -15.f);
 		m_channels[Sounds::Footsteps] = m_soundManager->Play(Sounds::Footsteps, Vector3(0.f), -5.f);
@@ -110,7 +110,7 @@ namespace px
 
 	void Application::LoadShaders()
 	{
-		m_shaders->LoadShadersFromFile(Shaders::Basic, "src/res/shaders/Primitive.hlsl", VS | PS);
+		m_shaders->LoadShadersFromFile(Shaders::Basic, "res/shaders/Primitive.hlsl", VS | PS);
 		m_shaders->CreateInputLayout(Shaders::Basic);
 	}
 
@@ -289,7 +289,7 @@ namespace px
 		depthStencilDesc.MiscFlags = 0;
 
 		//Create texture
-		assert(m_device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilTexture));
+		assert(!m_device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilTexture));
 
 		//Create the depth stencil view from the texture and description
 		assert(!m_device->CreateDepthStencilView(depthStencilTexture, NULL, m_depthStencilView.GetAddressOf()));
